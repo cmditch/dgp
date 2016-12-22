@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Gatekeepers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @gatekeepers.each do |gatekeeper| %>
+      <tr>
+        <td><%= gatekeeper.name %></td>
+        <td><%= link_to 'Show', gatekeeper %></td>
+        <td><%= link_to 'Edit', edit_gatekeeper_path(gatekeeper) %></td>
+        <td><%= link_to 'Destroy', gatekeeper, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Gatekeeper', new_gatekeeper_path %>

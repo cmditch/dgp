@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  txid: MyString
+  sender: MyString
+  recipient: MyString
+  amount: 1
+  time: 2016-12-22 13:29:57
+  block_id: 1
+
+two:
+  txid: MyString
+  sender: MyString
+  recipient: MyString
+  amount: 1
+  time: 2016-12-22 13:29:57
+  block_id: 1

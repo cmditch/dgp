@@ -1,0 +1,1 @@
+json.partial! "gatekeepers/gatekeeper", gatekeeper: @gatekeeper

@@ -1,0 +1,1 @@
+json.array! @gatekeepers, partial: 'gatekeepers/gatekeeper', as: :gatekeeper
