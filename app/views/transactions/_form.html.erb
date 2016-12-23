@@ -1,41 +1,69 @@
-<%= form_for(@transaction) do |f| %>
-  <% if @transaction.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@transaction.errors.count, "error") %> prohibited this transaction from being saved:</h2>
+<%= form_for @transaction, :html => { :class => "form-horizontal transaction" } do |f| %>
 
-      <ul>
-      <% @transaction.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+  <% if @transaction.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@transaction.errors.count, "error") %> prohibited this transaction from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @transaction.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :txid %><br>
-    <%= f.text_field :txid %>
+  <div class="form-group">
+    <%= f.label :txid, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :txid, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:txid) %>
   </div>
-  <div class="field">
-    <%= f.label :sender %><br>
-    <%= f.text_field :sender %>
+  <div class="form-group">
+    <%= f.label :sender, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :sender, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:sender) %>
   </div>
-  <div class="field">
-    <%= f.label :recipient %><br>
-    <%= f.text_field :recipient %>
+  <div class="form-group">
+    <%= f.label :recipient, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :recipient, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:recipient) %>
   </div>
-  <div class="field">
-    <%= f.label :amount %><br>
-    <%= f.number_field :amount %>
+  <div class="form-group">
+    <%= f.label :amount, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :amount, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:amount) %>
   </div>
-  <div class="field">
-    <%= f.label :time %><br>
-    <%= f.time_select :time %>
+  <div class="form-group">
+    <%= f.label :time, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :time, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:time) %>
   </div>
-  <div class="field">
-    <%= f.label :block_id %><br>
-    <%= f.number_field :block_id %>
+  <div class="form-group">
+    <%= f.label :block_id, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :block_id, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:block_id) %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+
+  <div class="form-group">
+    <div class="col-lg-offset-2 col-lg-10">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                transactions_path, :class => 'btn btn-default' %>
+    </div>
   </div>
+
 <% end %>

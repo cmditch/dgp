@@ -1,37 +1,46 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Listing Transactions</h1>
-
-<table>
+<%- model_class = Transaction -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+<table class="table table-striped">
   <thead>
     <tr>
-      <th>Txid</th>
-      <th>Sender</th>
-      <th>Recipient</th>
-      <th>Amount</th>
-      <th>Time</th>
-      <th>Block</th>
-      <th colspan="3"></th>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:txid) %></th>
+      <th><%= model_class.human_attribute_name(:sender) %></th>
+      <th><%= model_class.human_attribute_name(:recipient) %></th>
+      <th><%= model_class.human_attribute_name(:amount) %></th>
+      <th><%= model_class.human_attribute_name(:time) %></th>
+      <th><%= model_class.human_attribute_name(:block_id) %></th>
+      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
-
   <tbody>
     <% @transactions.each do |transaction| %>
       <tr>
+        <td><%= link_to transaction.id, transaction_path(transaction) %></td>
         <td><%= transaction.txid %></td>
         <td><%= transaction.sender %></td>
         <td><%= transaction.recipient %></td>
         <td><%= transaction.amount %></td>
         <td><%= transaction.time %></td>
         <td><%= transaction.block_id %></td>
-        <td><%= link_to 'Show', transaction %></td>
-        <td><%= link_to 'Edit', edit_transaction_path(transaction) %></td>
-        <td><%= link_to 'Destroy', transaction, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%=l transaction.created_at.to_date %></td>
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_transaction_path(transaction), :class => 'btn btn-default btn-xs' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      transaction_path(transaction),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-xs btn-danger' %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'New Transaction', new_transaction_path %>
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_transaction_path,
+            :class => 'btn btn-primary' %>

@@ -1,0 +1,62 @@
+<%= form_for @wallet, :html => { :class => "form-horizontal wallet" } do |f| %>
+
+  <% if @wallet.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@wallet.errors.count, "error") %> prohibited this wallet from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @wallet.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :address, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :address, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:address) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :balance, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :balance, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:balance) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :active, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :active, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:active) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :transactor_id, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :transactor_id, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:transactor_id) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :transactor_type, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :transactor_type, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:transactor_type) %>
+  </div>
+
+  <div class="form-group">
+    <div class="col-lg-offset-2 col-lg-10">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                wallets_path, :class => 'btn btn-default' %>
+    </div>
+  </div>
+
+<% end %>
