@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161222222810) do
+ActiveRecord::Schema.define(version: 20161223052650) do
 
   create_table "clients", force: :cascade do |t|
     t.string   "name"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 20161222222810) do
     t.integer  "block_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "fee"
   end
 
   create_table "users", force: :cascade do |t|
@@ -73,6 +74,7 @@ ActiveRecord::Schema.define(version: 20161222222810) do
     t.string   "transactor_type"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.string   "currency"
   end
 
   add_index "wallets", ["transactor_type", "transactor_id"], name: "index_wallets_on_transactor_type_and_transactor_id"
