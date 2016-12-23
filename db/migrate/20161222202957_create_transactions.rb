@@ -5,7 +5,7 @@ class CreateTransactions < ActiveRecord::Migration
       t.string :sender
       t.string :recipient
       t.integer :amount
-      t.time :time
+      t.time :datetime
       t.integer :block_id
 
       t.timestamps null: false

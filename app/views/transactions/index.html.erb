@@ -12,7 +12,6 @@
       <th><%= model_class.human_attribute_name(:amount) %></th>
       <th><%= model_class.human_attribute_name(:time) %></th>
       <th><%= model_class.human_attribute_name(:block_id) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
@@ -20,13 +19,12 @@
     <% @transactions.each do |transaction| %>
       <tr>
         <td><%= link_to transaction.id, transaction_path(transaction) %></td>
-        <td><%= transaction.txid %></td>
-        <td><%= transaction.sender %></td>
-        <td><%= transaction.recipient %></td>
-        <td><%= transaction.amount %></td>
+        <td><%= link_to short(transaction.txid), tx_link(transaction), target: "_blank", title: transaction.txid %></td>
+        <td><%= link_to short(transaction.sender.first), sender_link(transaction), :target => "_blank" %></td>
+        <td><%= link_to short(transaction.recipient.first), recipient_link(transaction), :target => "_blank" %></td>
+        <td><%= transaction.float_amount %></td>
         <td><%= transaction.time %></td>
         <td><%= transaction.block_id %></td>
-        <td><%=l transaction.created_at.to_date %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_transaction_path(transaction), :class => 'btn btn-default btn-xs' %>

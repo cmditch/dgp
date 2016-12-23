@@ -1,13 +1,15 @@
 module ChainParser
   require 'blockcypher'
 
-    def self.btc_parse(wallet)
+    def self.parse_btc(wallet)
       api = BlockCypher::Api.new(currency: wallet.currency)
-      tx_hashes = api.address_details(wallet.address)["txrefs"]
-      puts tx_hashes
+      txs = api.address_details(wallet.address)["txrefs"]
 
-      tx_hashes.each do |tx_load|
-        puts tx = api.blockchain_transaction(tx_load["tx_hash"])
+      # [REFAC] delete recorded transactions before calling api below
+
+      txs.each do |tx_load|
+        sleep 0.2
+        tx = api.blockchain_transaction(tx_load["tx_hash"])
         txid                = tx_load["tx_hash"]
         sender_addresses    = tx["inputs"].map {|sender| sender["addresses"]}.flatten
         receiving_addresses = tx["outputs"].map {|receiver| receiver["addresses"]}.flatten
@@ -21,9 +23,10 @@ module ChainParser
           sender: sender_addresses,
           recipient: receiving_addresses,
           amount: amount,
-          time: Time.new(time),
+          time: time.to_datetime,
           block_id: block,
-          fee: fee
+          fee: fee,
+          currency: "btc"
         }
         unless Transaction.list.include?(transaction_params[:txid])
           Transaction.create(transaction_params)

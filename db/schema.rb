@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161223052650) do
+ActiveRecord::Schema.define(version: 20161223063553) do
 
   create_table "clients", force: :cascade do |t|
     t.string   "name"
@@ -33,11 +33,12 @@ ActiveRecord::Schema.define(version: 20161223052650) do
     t.string   "sender"
     t.string   "recipient"
     t.integer  "amount"
-    t.time     "time"
+    t.datetime "time"
     t.integer  "block_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "fee"
+    t.string   "currency"
   end
 
   create_table "users", force: :cascade do |t|
