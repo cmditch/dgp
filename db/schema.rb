@@ -28,8 +28,6 @@ ActiveRecord::Schema.define(version: 20161223063553) do
 
   add_index "clients", ["gatekeeper_id"], name: "index_clients_on_gatekeeper_id"
 
-
-
   create_table "transactions", force: :cascade do |t|
     t.string   "txid"
     t.string   "sender"
