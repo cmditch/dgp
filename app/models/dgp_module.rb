@@ -16,6 +16,10 @@ module DGP
       @convert = CONVERT_CURRENCY.curry.(@wallet.currency)
     end
 
+    def api
+      BlockCypher::Api.new(currency: @wallet.currency)
+    end
+
     def details
       api.address_details(@wallet.address)
     end
@@ -33,8 +37,8 @@ module DGP
     end
 
     def update_database
-      begin
-        new_tx_ids.each do |new_tx|
+      new_tx_ids.each do |new_tx|
+        begin
           tx = api.blockchain_transaction(new_tx)
           txid                = new_tx
           sender_addresses    = tx["inputs"].map {|sender| sender["addresses"]}.flatten
@@ -56,16 +60,10 @@ module DGP
           }
           Transaction.create(transaction_params)
           sleep 0.3
+        rescue => e
+          Rails.logger.info "[ERROR] Updating transactions failed. WalletID: #{@wallet.id} TxId: #{new_}"
         end
-      rescue => e
-        puts "[ERROR] Updating transactions failed. WalletID: #{@wallet.id} TxId: #{txid}"
       end
-    end
-
-    private
-
-    def api
-      BlockCypher::Api.new(currency: @wallet.currency)
     end
   end #class ChainParser
 
@@ -73,7 +71,20 @@ module DGP
     require 'coinbase/wallet'
     KEY = Rails.application.secrets.coinbase_api_key
     SECRET = Rails.application.secrets.coinbase_api_secret
-    client = Coinbase::Wallet::Client.new(api_key: KEY, api_secret: SECRET)
+    COINBASE_CLIENT = Coinbase::Wallet::Client.new(api_key: KEY, api_secret: SECRET)
+
+    def initialize(wallet)
+      @wallet = wallet
+    end
+
+    def self.rate(currency="USD")
+      # COINBASE_CLIENT.spot_price(currency: "BTC-#{currency.upcase}")
+      COINBASE_CLIENT.spot_price
+    end
+
+    def deposit(amount)
+      
+    end
 
   end #class Depositor
 end #module DGP
