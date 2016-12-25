@@ -22,7 +22,7 @@
         <td><%= link_to short(transaction.txid), tx_link(transaction), target: "_blank", title: transaction.txid %></td>
         <td><%= link_to short(transaction.sender.first), sender_link(transaction), :target => "_blank" %></td>
         <td><%= link_to short(transaction.recipient.first), recipient_link(transaction), :target => "_blank" %></td>
-        <td><%= transaction.float_amount %></td>
+        <td><%= transaction.amount %></td>
         <td><%= transaction.time %></td>
         <td><%= transaction.block_id %></td>
         <td>

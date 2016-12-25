@@ -1,7 +1,7 @@
 class Wallet < ActiveRecord::Base
   require 'blockcypher'
-
   belongs_to :transactor, polymorphic: true
+  validates_presence_of :currency, :address
 
   def api
     BlockCypher::Api.new(currency: currency)
@@ -22,6 +22,12 @@ class Wallet < ActiveRecord::Base
     address = self.address
     txs = Transaction.all
     txs.map { |tx| tx if [tx.sender, tx.recipient].flatten.include?(address) }.compact
+  end
+
+  def tx_ids
+    address = self.address
+    txs = Transaction.all
+    txs.map { |tx| tx.txid if [tx.sender, tx.recipient].flatten.include?(address) }.compact
   end
 
   def txs_in
@@ -50,3 +56,7 @@ class Wallet < ActiveRecord::Base
 
 end
 
+
+    address = Wallet.last
+    txs = Transaction.all
+    txs.map { |tx| tx.txid if [tx.sender, tx.recipient].flatten.include?(address) }.compact
