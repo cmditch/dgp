@@ -61,7 +61,7 @@ module DGP
           Transaction.create(transaction_params)
           sleep 0.3
         rescue => e
-          Rails.logger.info "[ERROR] Updating transactions failed. WalletID: #{@wallet.id} TxId: #{new_}"
+          Rails.logger.info "[ERROR] Updating transactions failed. WalletID: #{@wallet.id} TxId: #{new_}\n#{e}"
         end
       end
     end
@@ -69,21 +69,21 @@ module DGP
 
   class Depositor
     require 'coinbase/wallet'
+
     KEY = Rails.application.secrets.coinbase_api_key
     SECRET = Rails.application.secrets.coinbase_api_secret
-    COINBASE_CLIENT = Coinbase::Wallet::Client.new(api_key: KEY, api_secret: SECRET)
+    ACCOUNT_ID = Rails.application.secrets.coinbase_account_id
 
-    def initialize(wallet)
-      @wallet = wallet
+    def initialize(wallet, params = {amount: amount})
+      @wallet   = wallet
+      @address  = @wallet.address
+      @amount   = params[:amount] || @wallet.transactor.daily_usd_amount
+      @client   = Coinbase::Wallet::Client.new(api_key: KEY, api_secret: SECRET)
+      @account  = @client.account(id: ACCOUNT_ID)
     end
 
-    def self.rate(currency="USD")
-      # COINBASE_CLIENT.spot_price(currency: "BTC-#{currency.upcase}")
-      COINBASE_CLIENT.spot_price
-    end
-
-    def deposit(amount)
-      
+    def deposit
+      @account.send(to: @address, amount: @amount, currency: "USD")
     end
 
   end #class Depositor

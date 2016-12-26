@@ -2,22 +2,29 @@ module CoinCap
 
   class Api
 
+    attr_reader :coin_list
+
+    def initialize()
+      @coin_list ||= api_http_get('/front')
+    end
+
     def coin_details(coin = "BTC")
-      api_http_get('/front').select { |coin| coin[:short] == coin.upcase }
+      coin_list.select { |symbol| symbol["short"] == coin.upcase }
     end
 
     def coin_price(coin = "BTC")
       info = coin_details(coin).first
-      [info[:short], info[:price]]
+      puts coin.upcase
+      info["price"].to_f
     end
 
-  private
+    private
 
     def api_http_call(http_method, api_path, query, json_payload: nil)
       uri = endpoint_uri(api_path, query)
 
       # Build the connection
-      http    = Net::HTTP.new(uri.host, uri.port)
+      http = Net::HTTP.new(uri.host, uri.port)
       # http.use_ssl = true
 
       # Build the Request
@@ -58,18 +65,11 @@ module CoinCap
       api_http_call(:get, api_path, query)
     end
 
-    def api_http_post(api_path, json_payload: nil, query: {})
-      api_http_call(:post, api_path, query, json_payload: json_payload)
-    end
-
-    def api_http_delete(api_path, query: {})
-      api_http_call(:delete, api_path, query)
-    end
-
     def endpoint_uri(api_path, query)
-      uri = URI("http://www.coincap.io/#{api_path}")
+      uri = URI("http://www.coincap.io#{api_path}")
       uri.query = URI.encode_www_form(query) unless query.empty?
       uri
     end
   end
+
 end
