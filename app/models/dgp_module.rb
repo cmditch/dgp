@@ -71,13 +71,15 @@ module DGP
   class Depositor
     require 'coinbase/wallet'
 
+    attr_accessor :client
+
     KEY         = Rails.application.secrets.coinbase_api_key
     SECRET      = Rails.application.secrets.coinbase_api_secret
     ACCOUNT_ID  = Rails.application.secrets.coinbase_account_id
 
     def initialize(wallet)
       @wallet   = wallet
-      @address  = @wallet.addresses
+      @address  = @wallet.address
       @client   = @wallet.transactor
       @amount   = @wallet.transactor.daily_usd_amount
       @api      = Coinbase::Wallet::Client.new(api_key: KEY, api_secret: SECRET)
@@ -88,9 +90,9 @@ module DGP
       if @client.active? && @wallet.primary?
         @account.send(to: @address, amount: @amount, currency: "USD")
       else
-        Rails.logger.info "[ERROR] Deposit failed. ClientID: #{@client.id}  WalletID: #{@wallet.id}"
+        Rails.logger.info "[ERROR] Deposit failed.\nClientID: #{@client.id} (active: #{@client.active})  WalletID: #{@wallet.id} (primary: #{@wallet.primary})"
       end
     end
-
   end #class Depositor
+
 end #module DGP
