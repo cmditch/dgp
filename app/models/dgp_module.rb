@@ -49,19 +49,20 @@ module DGP
           block               = tx["block_height"]
 
           transaction_params = {
-            txid: txid,
-            sender: sender_addresses,
-            recipient: receiving_addresses,
-            amount: @convert.(amount),
-            time: time.to_datetime,
-            block_id: block,
-            fee: fee,
-            currency: @wallet.currency
+            txid:       txid,
+            sender:     sender_addresses,
+            recipient:  receiving_addresses,
+            amount:     @convert.(amount),
+            time:       time.to_datetime,
+            block_id:   block,
+            fee:        fee,
+            currency:   @wallet.currency
           }
+
           Transaction.create(transaction_params)
           sleep 0.3
         rescue => e
-          Rails.logger.info "[ERROR] Updating transactions failed. WalletID: #{@wallet.id} TxId: #{new_}\n#{e}"
+          Rails.logger.info "[ERROR] Updating transactions failed. WalletID: #{@wallet.id} TxId: #{txid}\n#{e}"
         end
       end
     end
@@ -70,20 +71,25 @@ module DGP
   class Depositor
     require 'coinbase/wallet'
 
-    KEY = Rails.application.secrets.coinbase_api_key
-    SECRET = Rails.application.secrets.coinbase_api_secret
-    ACCOUNT_ID = Rails.application.secrets.coinbase_account_id
+    KEY         = Rails.application.secrets.coinbase_api_key
+    SECRET      = Rails.application.secrets.coinbase_api_secret
+    ACCOUNT_ID  = Rails.application.secrets.coinbase_account_id
 
-    def initialize(wallet, params = {amount: amount})
+    def initialize(wallet)
       @wallet   = wallet
-      @address  = @wallet.address
-      @amount   = params[:amount] || @wallet.transactor.daily_usd_amount
-      @client   = Coinbase::Wallet::Client.new(api_key: KEY, api_secret: SECRET)
-      @account  = @client.account(id: ACCOUNT_ID)
+      @address  = @wallet.addresses
+      @client   = @wallet.transactor
+      @amount   = @wallet.transactor.daily_usd_amount
+      @api      = Coinbase::Wallet::Client.new(api_key: KEY, api_secret: SECRET)
+      @account  = @api.account(ACCOUNT_ID)
     end
 
     def deposit
-      @account.send(to: @address, amount: @amount, currency: "USD")
+      if @client.active? && @wallet.primary?
+        @account.send(to: @address, amount: @amount, currency: "USD")
+      else
+        Rails.logger.info "[ERROR] Deposit failed. ClientID: #{@client.id}  WalletID: #{@wallet.id}"
+      end
     end
 
   end #class Depositor
