@@ -2,6 +2,10 @@ class Client < ActiveRecord::Base
   belongs_to :gatekeeper
   has_many :wallets, as: :transactor
 
+  self.active
+    where(active: true)
+  end
+
   def address_list
     wallets.map(&:address)
   end
@@ -16,4 +20,5 @@ class Client < ActiveRecord::Base
       wallet[0]
     end
   end
+
 end
