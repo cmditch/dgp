@@ -18,6 +18,3 @@
 
 # Ignore here
 /config/secrets.yml
-.gitignore
-Gemfile
-Gemfile.lock
