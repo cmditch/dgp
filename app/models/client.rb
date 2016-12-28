@@ -14,9 +14,10 @@ class Client < ActiveRecord::Base
     wallet = self.wallets.where(primary: true)
     if wallet.count > 1
       # raise "Client #{self.id} has #{wallet.count} primary wallets."
+      raise "ERROR Client #{self.id} (#{self.name}) has too many primary wallets."
     elsif wallet.count < 1
       # raise "Client #{self.id} has no primary wallet."
-      puts "Client #{self.id} has no primary wallet."
+      raise "ERROR Client #{self.id} (#{self.name}) has no primary wallet."
     else
       wallet[0]
     end

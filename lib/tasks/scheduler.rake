@@ -16,8 +16,8 @@ task :daily_deposit => :environment do
   # Rails.logger.info "Beginning deposits.."
   Client.active.each do |client|
     # Rails.logger.info "Depositing to Client   { id: #{client.id}, name: #{client.name}, wallet: #{client.primary_wallet} }"
-    puts "Depositing to    { id: #{client.id}, name: #{client.name}, wallet: #{client.primary_wallet} }"
-    depositor = DGP::Depositor.new(client.primary_wallet)
+    puts "Depositing to    { ID: #{client.id}, NAME: #{client.name} }"
+    depositor = DGP::Depositor::Client.new(client)
     depositor.deposit
     # Rails.logger.info "Deposit Success Client { id: #{client.id}, name: #{client.name}, wallet: #{client.primary_wallet} }"
     puts "Deposit Success! { id: #{client.id}, name: #{client.name}, wallet: #{client.primary_wallet} }" if depositor.success
