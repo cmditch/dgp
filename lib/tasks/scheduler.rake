@@ -20,6 +20,6 @@ task :daily_deposit => :environment do
     depositor = DGP::Depositor.new(client.primary_wallet)
     depositor.deposit
     # Rails.logger.info "Deposit Success Client { id: #{client.id}, name: #{client.name}, wallet: #{client.primary_wallet} }"
-    puts "Deposit Success! { id: #{client.id}, name: #{client.name}, wallet: #{client.primary_wallet} }" if depositor.success?
+    puts "Deposit Success! { id: #{client.id}, name: #{client.name}, wallet: #{client.primary_wallet} }" if depositor.success
   end
 end
