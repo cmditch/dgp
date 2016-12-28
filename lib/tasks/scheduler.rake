@@ -11,7 +11,7 @@ task :update_btc_txs => :environment do
 end
 
 desc "Deposit's daily $ amount to primary wallets of active clients"
-task :daily_deposit do
+task :daily_deposit => :environment do
   puts "Beginning deposits"
   # Rails.logger.info "Beginning deposits.."
   Client.active.each do |client|
