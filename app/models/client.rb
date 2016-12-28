@@ -2,7 +2,7 @@ class Client < ActiveRecord::Base
   belongs_to :gatekeeper
   has_many :wallets, as: :transactor
 
-  self.active
+  def self.active
     where(active: true)
   end
 
@@ -11,7 +11,7 @@ class Client < ActiveRecord::Base
   end
   
   def primary_wallet
-    wallet = wallets.where(active: true)
+    wallet = self.wallets.where(active: true)
     if wallet.count > 1
       raise "Client #{self.id} has #{wallet.count} primary wallets."
     elsif wallet.count < 1
