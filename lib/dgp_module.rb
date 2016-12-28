@@ -78,7 +78,7 @@ module DGP
 
       def initialize(client)
         @client   = client
-        @wallet   = @client.primary_wallet rescue => e
+        @wallet   = @client.primary_wallet
         @address  = @wallet.address
         @amount   = @client.daily_usd_amount
         @api      = Coinbase::Wallet::Client.new(api_key: KEY, api_secret: SECRET)
