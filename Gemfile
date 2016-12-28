@@ -40,7 +40,7 @@ gem 'blockcypher-ruby', '~> 0.2.4'
 # gem 'capistrano-rails', group: :development
 
 group :production do
-  gem 'pg'
+  # gem 'pg'
   gem 'rails_12factor'
 end
 

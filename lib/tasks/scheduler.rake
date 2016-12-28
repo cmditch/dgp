@@ -10,6 +10,11 @@ task :update_btc_txs => :environment do
   puts "done."
 end
 
-# task :send_reminders => :environment do
-#   User.send_reminders
-# end
+desc "Deposit's daily $ amount to primary wallets of active clients"
+task :daily_deposit
+  puts "Beginning deposits"
+  Rails.logger.info "Beginning deposits.."
+  Clients.active.each do |client|
+    Rails.logger.info "Depositing to Client {#{client.id}}"
+    depositor = DGP::Depositor.new(client.primary_wallet)
+    depositor.deposit

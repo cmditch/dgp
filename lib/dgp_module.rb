@@ -70,9 +70,7 @@ module DGP
 
   class Depositor
     require 'coinbase/wallet'
-
     attr_accessor :client
-
     KEY         = Rails.application.secrets.coinbase_api_key
     SECRET      = Rails.application.secrets.coinbase_api_secret
     ACCOUNT_ID  = Rails.application.secrets.coinbase_account_id
