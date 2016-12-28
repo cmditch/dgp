@@ -13,11 +13,13 @@ end
 desc "Deposit's daily $ amount to primary wallets of active clients"
 task :daily_deposit do
   puts "Beginning deposits"
-  Rails.logger.info "Beginning deposits.."
+  # Rails.logger.info "Beginning deposits.."
   Client.active.each do |client|
-    Rails.logger.info "Depositing to Client   { id: #{client.id}, name: #{client.name}, wallet: #{client.primary_wallet} }"
+    # Rails.logger.info "Depositing to Client   { id: #{client.id}, name: #{client.name}, wallet: #{client.primary_wallet} }"
+    puts "Depositing to Client   { id: #{client.id}, name: #{client.name}, wallet: #{client.primary_wallet} }"
     depositor = DGP::Depositor.new(client.primary_wallet)
     depositor.deposit
-    Rails.logger.info "Deposit Success Client { id: #{client.id}, name: #{client.name}, wallet: #{client.primary_wallet} }"
+    # Rails.logger.info "Deposit Success Client { id: #{client.id}, name: #{client.name}, wallet: #{client.primary_wallet} }"
+    puts "Deposit Success Client { id: #{client.id}, name: #{client.name}, wallet: #{client.primary_wallet} }"
   end
 end
