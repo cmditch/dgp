@@ -11,7 +11,7 @@ class Client < ActiveRecord::Base
   end
   
   def primary_wallet
-    wallet = self.wallets.where(active: true)
+    wallet = self.wallets.where(primary: true)
     if wallet.count > 1
       raise "Client #{self.id} has #{wallet.count} primary wallets."
     elsif wallet.count < 1
