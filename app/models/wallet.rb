@@ -55,8 +55,3 @@ class Wallet < ActiveRecord::Base
   end
 
 end
-
-
-    address = Wallet.last
-    txs = Transaction.all
-    txs.map { |tx| tx.txid if [tx.sender, tx.recipient].flatten.include?(address) }.compact

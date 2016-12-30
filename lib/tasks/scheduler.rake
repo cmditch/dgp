@@ -1,9 +1,9 @@
 require 'dgp_module'
 
 desc "This task adds recent BTC txs to the list"
-task :update_btc_txs => :environment do
-  puts "Updating feed..."
-  Wallet.all.each do |wallet|
+task :parse_active_wallets => :environment do
+  puts "Updating tx feed..."
+  Wallet.active.each do |wallet|
     DGP::ChainParser.new(wallet).update_database
     puts "Finished parsing transactions for WalletID: #{wallet.id}"
   end
@@ -23,3 +23,8 @@ task :daily_deposit => :environment do
     puts "Deposit Success! { id: #{client.id}, name: #{client.name}, wallet: #{client.primary_wallet} }" if depositor.success
   end
 end
+
+
+desc ""
+task :asd
+
