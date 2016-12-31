@@ -1,0 +1,21 @@
+<%= form_for(@bitpay_webhook) do |f| %>
+  <% if @bitpay_webhook.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@bitpay_webhook.errors.count, "error") %> prohibited this bitpay_webhook from being saved:</h2>
+
+      <ul>
+      <% @bitpay_webhook.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :data %><br>
+    <%= f.text_area :data %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

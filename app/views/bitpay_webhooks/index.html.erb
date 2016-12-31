@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Bitpay Webhooks</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Data</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @bitpay_webhooks.each do |bitpay_webhook| %>
+      <tr>
+        <td><%= bitpay_webhook.data %></td>
+        <td><%= link_to 'Show', bitpay_webhook %></td>
+        <td><%= link_to 'Edit', edit_bitpay_webhook_path(bitpay_webhook) %></td>
+        <td><%= link_to 'Destroy', bitpay_webhook, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Bitpay webhook', new_bitpay_webhook_path %>
