@@ -14,7 +14,7 @@ Rails.application.routes.draw do
 
   root "gatekeepers#index"
 
-   post '/bitpay' => 'bitpay_webhook#receive', as: :bitpay_notification
+  post '/bitpay' => 'bitpay_webhooks#receive', as: :bitpay_notification
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

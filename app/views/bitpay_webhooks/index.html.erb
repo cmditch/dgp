@@ -25,3 +25,12 @@
 <br>
 
 <%= link_to 'New Bitpay webhook', new_bitpay_webhook_path %>
+
+<div style="float: right;">
+<form action="https://bitpay.com/checkout" method="post" >
+  <input type="hidden" name="action" value="checkout" />
+  <input type="hidden" name="posData" value="" />
+  <input type="hidden" name="data" value="Mld1Vd/lreMoCijW9CiIquNpLYCEVhxeWYp4qSIfaLtLIOY39B9HBiOyr3+ptOOnN4rVwC2lqzwDbPbqwxi51XWhkrwdsEhI3RZBDW9w2A6TMNZCH41UhTYhQJaIvwixpFSO02dI6up9G5VrtY2Roy7DNWepzxtzJ9Y+tdQ8e51gh6kFBXrJH9zE6SYrZmuds2dH96AMh5VpyI7nch7k4jt0vZtxXndzVv4lTBZVV+KqsezgTcK1vqcQ0IF374M4SL1Eyhi2hn2+Sf3B0XDQ+ggtwkNRpxwx2PUlbIZ6C1U=" />
+  <input type="image" src="https://bitpay.com/img/button-medium.png" border="0" name="submit" alt="BitPay, the easy way to pay with bitcoins." >
+</form>
+</div>
