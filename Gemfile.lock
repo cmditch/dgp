@@ -37,6 +37,8 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     arel (6.0.3)
+    attr_encrypted (3.0.3)
+      encryptor (~> 3.0.0)
     bcrypt (3.1.11)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
@@ -72,6 +74,7 @@ GEM
       responders
       warden (~> 1.2.3)
     ecdsa (1.2.0)
+    encryptor (3.0.0)
     erubis (2.7.0)
     execjs (2.7.0)
     ffi (1.9.14)
@@ -201,6 +204,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  attr_encrypted (~> 3.0.0)
   bitpay-sdk
   blockchain
   blockcypher-ruby (~> 0.2.4)

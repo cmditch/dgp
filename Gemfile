@@ -26,6 +26,8 @@ gem 'seed_dump'
 
 gem 'devise'
 gem 'twitter-bootstrap-rails'
+gem "attr_encrypted", "~> 3.0.0"
+
 gem 'coinbase'
 gem 'bitpay-sdk', :require => 'bitpay_sdk'
 gem 'blockchain'
