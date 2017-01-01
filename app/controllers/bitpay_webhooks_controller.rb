@@ -65,17 +65,16 @@ class BitpayWebhooksController < ApplicationController
 
     # POST /bitpay.json
   def receive
-    @bitpay_webhook = BitpayWebhook.new(bitpay_webhook_params)
-
-    respond_to do |format|
-      if @bitpay_webhook.save
-        format.html { redirect_to @bitpay_webhook, notice: 'Bitpay webhook was successfully created.' }
-        format.json { render :show, status: :created, location: @bitpay_webhook }
-      else
-        format.html { render :new }
-        format.json { render json: @bitpay_webhook.errors, status: :unprocessable_entity }
-      end
+    if request.headers['Content-Type'] == 'application/json'
+      data = JSON.parse(request.body.read)
+    else
+      # application/x-www-form-urlencoded
+      data = params.as_json
     end
+
+    BitpayWebhook.create(data: data)
+
+    render nothing: true
   end
 
   private

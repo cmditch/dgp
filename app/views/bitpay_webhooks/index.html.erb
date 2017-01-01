@@ -48,3 +48,12 @@
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_bitpay_webhook_path,
             :class => 'btn btn-primary' %>
+
+<div style="float:right;">
+<form action="https://bitpay.com/checkout" method="post" >
+  <input type="hidden" name="action" value="checkout" />
+  <input type="hidden" name="posData" value="" />
+  <input type="hidden" name="data" value="Mld1Vd/lreMoCijW9CiIquNpLYCEVhxeWYp4qSIfaLtLIOY39B9HBiOyr3+ptOOnyGM2KB3RQ2LsUzjvVYovT5a98hLCwJglaD7CylGJQIAiVH12MlHdygneSFp1l6uxhnFtjPbkT5ifEOkKOt9iw4Ge+B6Jw9+2gXavpjfV4me/XfaYm1UybYfVZmiCkpm7minFkwnqSkerUlbHTEg9/DRKuscwSEh/74TYzGejFZODrv7KxvRm/BcUMX9lhRpJTeqTJc3vDupu8NRruiLeZagTy4Nn2kvhuUDT6Zya77O0uf87ENKdEXzMsutPqJdF" />
+  <input type="image" src="https://bitpay.com/img/button-medium.png" border="0" name="submit" alt="BitPay, the easy way to pay with bitcoins." >
+</form>
+</div>
