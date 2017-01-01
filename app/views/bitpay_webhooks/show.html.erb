@@ -1,9 +1,35 @@
-<p id="notice"><%= notice %></p>
+<%- model_class = BitpayWebhook -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+</div>
 
-<p>
-  <strong>Data:</strong>
-  <%= @bitpay_webhook.data %>
-</p>
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:data) %>:</strong></dt>
+  <dd><%= @bitpay_webhook.data %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:invoice_id) %>:</strong></dt>
+  <dd><%= @bitpay_webhook.invoice_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:amount) %>:</strong></dt>
+  <dd><%= @bitpay_webhook.amount %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:btcPaid) %>:</strong></dt>
+  <dd><%= @bitpay_webhook.btcPaid %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:currency) %>:</strong></dt>
+  <dd><%= @bitpay_webhook.currency %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:rate) %>:</strong></dt>
+  <dd><%= @bitpay_webhook.rate %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:status) %>:</strong></dt>
+  <dd><%= @bitpay_webhook.status %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:exceptionStatus) %>:</strong></dt>
+  <dd><%= @bitpay_webhook.exceptionStatus %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:posData) %>:</strong></dt>
+  <dd><%= @bitpay_webhook.posData %></dd>
+</dl>
 
-<%= link_to 'Edit', edit_bitpay_webhook_path(@bitpay_webhook) %> |
-<%= link_to 'Back', bitpay_webhooks_path %>
+<%= link_to t('.back', :default => t("helpers.links.back")),
+              bitpay_webhooks_path, :class => 'btn btn-default'  %>
+<%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_bitpay_webhook_path(@bitpay_webhook), :class => 'btn btn-default' %>
+<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              bitpay_webhook_path(@bitpay_webhook),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>

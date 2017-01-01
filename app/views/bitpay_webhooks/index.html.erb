@@ -1,36 +1,50 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Listing Bitpay Webhooks</h1>
-
-<table>
+<%- model_class = BitpayWebhook -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+<table class="table table-striped">
   <thead>
     <tr>
-      <th>Data</th>
-      <th colspan="3"></th>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:invoice_id) %></th>
+      <th><%= model_class.human_attribute_name(:amount) %></th>
+      <th><%= model_class.human_attribute_name(:btcPaid) %></th>
+      <th><%= model_class.human_attribute_name(:currency) %></th>
+      <th><%= model_class.human_attribute_name(:rate) %></th>
+      <th><%= model_class.human_attribute_name(:status) %></th>
+      <th><%= model_class.human_attribute_name(:exceptionStatus) %></th>
+      <th><%= model_class.human_attribute_name(:posData) %></th>
+      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
-
   <tbody>
     <% @bitpay_webhooks.each do |bitpay_webhook| %>
       <tr>
-        <td><%= bitpay_webhook.data %></td>
-        <td><%= link_to 'Show', bitpay_webhook %></td>
-        <td><%= link_to 'Edit', edit_bitpay_webhook_path(bitpay_webhook) %></td>
-        <td><%= link_to 'Destroy', bitpay_webhook, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to bitpay_webhook.id, bitpay_webhook_path(bitpay_webhook) %></td>
+        <td><%= bitpay_webhook.invoice_id %></td>
+        <td><%= bitpay_webhook.amount %></td>
+        <td><%= bitpay_webhook.btcPaid %></td>
+        <td><%= bitpay_webhook.currency %></td>
+        <td><%= bitpay_webhook.rate %></td>
+        <td><%= bitpay_webhook.status %></td>
+        <td><%= bitpay_webhook.exceptionStatus %></td>
+        <td><%= bitpay_webhook.posData %></td>
+        <td><%=l bitpay_webhook.created_at.to_date %></td>
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_bitpay_webhook_path(bitpay_webhook), :class => 'btn btn-default btn-xs' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      bitpay_webhook_path(bitpay_webhook),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-xs btn-danger' %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'New Bitpay webhook', new_bitpay_webhook_path %>
-
-<div style="float: right;">
-<form action="https://bitpay.com/checkout" method="post" >
-  <input type="hidden" name="action" value="checkout" />
-  <input type="hidden" name="posData" value="" />
-  <input type="hidden" name="data" value="Mld1Vd/lreMoCijW9CiIquNpLYCEVhxeWYp4qSIfaLtLIOY39B9HBiOyr3+ptOOndTFJ5YKcP2Mr31QJEsewdNQ4sdKuhuRdy3LIRW8NaoorlBGZfyz/ZJ+9OPdMywOoMpb8GFrOxpFm/entU1Cab3qJhVvXHrJbawnpkBlvtKnQPp236XGvKKEA98O5JD5NUAY7kgU/dEDpihZbaYzDPWdL5clM15wc2AbOjMOcvF4Xp/84NH2KdZM1id6Itfok8HLOhehDDoqhJ7N4mo9uKditiwx2GOH/qpkV+uPt3kQ=" />
-  <input type="image" src="https://bitpay.com/img/button-medium.png" border="0" name="submit" alt="BitPay, the easy way to pay with bitcoins." >
-</form>
-</div>
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_bitpay_webhook_path,
+            :class => 'btn btn-primary' %>

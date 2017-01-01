@@ -1,21 +1,90 @@
-<%= form_for(@bitpay_webhook) do |f| %>
-  <% if @bitpay_webhook.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@bitpay_webhook.errors.count, "error") %> prohibited this bitpay_webhook from being saved:</h2>
+<%= form_for @bitpay_webhook, :html => { :class => "form-horizontal bitpay_webhook" } do |f| %>
 
-      <ul>
-      <% @bitpay_webhook.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+  <% if @bitpay_webhook.errors.any? %>
+    <div id="error_expl" class="panel panel-danger">
+      <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@bitpay_webhook.errors.count, "error") %> prohibited this bitpay_webhook from being saved:</h3>
+      </div>
+      <div class="panel-body">
+        <ul>
+        <% @bitpay_webhook.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :data %><br>
-    <%= f.text_area :data %>
+  <div class="form-group">
+    <%= f.label :data, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :data, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:data) %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="form-group">
+    <%= f.label :invoice_id, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :invoice_id, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:invoice_id) %>
   </div>
+  <div class="form-group">
+    <%= f.label :amount, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :amount, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:amount) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :btcPaid, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :btcPaid, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:btcPaid) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :currency, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :currency, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:currency) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :rate, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :rate, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:rate) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :status, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :status, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:status) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :exceptionStatus, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :exceptionStatus, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:exceptionStatus) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :posData, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :posData, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:posData) %>
+  </div>
+
+  <div class="form-group">
+    <div class="col-lg-offset-2 col-lg-10">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                bitpay_webhooks_path, :class => 'btn btn-default' %>
+    </div>
+  </div>
+
 <% end %>
