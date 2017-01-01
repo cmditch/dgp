@@ -64,16 +64,17 @@ class BitpayWebhooksController < ApplicationController
 
     # POST /bitpay.json
   def receive
-    if request.headers['Content-Type'] == 'application/json'
-      data = JSON.parse(request.body.read)
-    else
-      # application/x-www-form-urlencoded
-      data = params.as_json
+    @bitpay_webhook = BitpayWebhook.new(bitpay_webhook_params)
+
+    respond_to do |format|
+      if @bitpay_webhook.save
+        format.html { redirect_to @bitpay_webhook, notice: 'Bitpay webhook was successfully created.' }
+        format.json { render :show, status: :created, location: @bitpay_webhook }
+      else
+        format.html { render :new }
+        format.json { render json: @bitpay_webhook.errors, status: :unprocessable_entity }
+      end
     end
-
-    BitpayWebhook.create(data: data, integration: params[:integration_name])
-
-    render nothing: true
   end
 
   private
@@ -84,6 +85,15 @@ class BitpayWebhooksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def bitpay_webhook_params
-      params.require(:bitpay_webhook).permit(:data)
+      params.require(:bitpay_webhook).permit(
+          :data,
+          :invoice_id,
+          :amount,
+          :btcPaid,
+          :currency,
+          :rate,
+          :status,
+          :exceptionStatus
+        )
     end
 end
