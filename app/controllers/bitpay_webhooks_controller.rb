@@ -65,15 +65,7 @@ class BitpayWebhooksController < ApplicationController
 
     # POST /bitpay.json
   def receive
-    if request.headers['Content-Type'] == 'application/json'
-      data = JSON.parse(request.body.read)
-    else
-      # application/x-www-form-urlencoded
-      data = params.as_json
-    end
-
-    BitpayWebhook.create(data: data)
-
+    BitpayWebhook.create(data: params)
     render nothing: true
   end
 
@@ -84,17 +76,17 @@ class BitpayWebhooksController < ApplicationController
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def bitpay_webhook_params
-      params.require(:bitpay_webhook).permit(
-          :data,
-          :invoice_id,
-          :amount,
-          :btcPaid,
-          :posData,
-          :currency,
-          :rate,
-          :status,
-          :exceptionStatus
-        )
-    end
+    # def bitpay_webhook_params
+    #   params.require(:bitpay_webhook).permit(
+    #       :data,
+    #       :invoice_id,
+    #       :amount,
+    #       :btcPaid,
+    #       :posData,
+    #       :currency,
+    #       :rate,
+    #       :status,
+    #       :exceptionStatus
+    #     )
+    # end
 end

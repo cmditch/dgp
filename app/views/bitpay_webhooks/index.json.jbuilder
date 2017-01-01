@@ -1,1 +1,0 @@
-json.array! @bitpay_webhooks, partial: 'bitpay_webhooks/bitpay_webhook', as: :bitpay_webhook

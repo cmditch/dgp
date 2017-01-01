@@ -1,2 +1,0 @@
-json.extract! bitpay_webhook, :id, :data, :invoice_id, :amount, :btcPaid, :currency, :rate, :status, :exceptionStatus, :posData, :created_at, :updated_at
-json.url bitpay_webhook_url(bitpay_webhook, format: :json)
