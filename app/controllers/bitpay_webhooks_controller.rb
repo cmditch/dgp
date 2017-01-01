@@ -90,6 +90,7 @@ class BitpayWebhooksController < ApplicationController
           :invoice_id,
           :amount,
           :btcPaid,
+          :posData,
           :currency,
           :rate,
           :status,
