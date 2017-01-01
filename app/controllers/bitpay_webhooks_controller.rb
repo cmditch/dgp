@@ -1,5 +1,6 @@
 class BitpayWebhooksController < ApplicationController
   before_action :set_bitpay_webhook, only: [:show, :edit, :update, :destroy]
+  skip_before_action :verify_authenticity_token
 
   # GET /bitpay_webhooks
   # GET /bitpay_webhooks.json
