@@ -11,12 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161231211751) do
+ActiveRecord::Schema.define(version: 20170101022109) do
 
   create_table "bitpay_webhooks", force: :cascade do |t|
     t.text     "data"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.string   "invoice_id"
+    t.float    "amount"
+    t.float    "btcPaid"
+    t.string   "currency"
+    t.float    "rate"
+    t.string   "status"
+    t.boolean  "exceptionStatus"
   end
 
   create_table "clients", force: :cascade do |t|
