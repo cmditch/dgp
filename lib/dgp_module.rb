@@ -1,4 +1,5 @@
 module DGP
+
   require 'blockcypher'
 
   CONVERT_CURRENCY = Proc.new do |type, x|
@@ -11,6 +12,7 @@ module DGP
   end
 
   class ChainParser
+
     def initialize(wallet)
       @wallet = wallet
       @convert = CONVERT_CURRENCY.curry.(@wallet.currency)
@@ -68,10 +70,15 @@ module DGP
     end
   end #class ChainParser
 
+
   module Depositor
+
     class Client
+
       require 'coinbase/wallet'
+
       attr_accessor :success
+      
       KEY         = Rails.application.secrets.coinbase_api_key
       SECRET      = Rails.application.secrets.coinbase_api_secret
       ACCOUNT_ID  = Rails.application.secrets.coinbase_account_id

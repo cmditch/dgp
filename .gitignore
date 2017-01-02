@@ -17,4 +17,4 @@
 /tmp
 
 
-/config/secrets_backup.yml
+/config/secrets.yml.local
