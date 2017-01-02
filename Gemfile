@@ -32,6 +32,8 @@ gem 'coinbase'
 gem 'bitpay-sdk', :require => 'bitpay_sdk'
 gem 'blockchain'
 gem 'blockcypher-ruby', '~> 0.2.4'
+gem 'money-tree'
+gem 'bip_mnemonic'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

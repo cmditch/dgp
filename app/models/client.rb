@@ -1,6 +1,7 @@
 class Client < ActiveRecord::Base
   belongs_to :gatekeeper
   has_many :wallets, as: :transactor
+  attr_encrypted :mnemonic, key: Rails.application.secrets.encryptor
 
   def self.active
     where(active: true)
