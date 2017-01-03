@@ -1,6 +1,6 @@
 class Wallet < ActiveRecord::Base
   require 'blockcypher'
-  serialize :last_api_data
+  serialize :txs
   belongs_to :transactor, polymorphic: true
   validates_presence_of :address
 
