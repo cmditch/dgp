@@ -2,8 +2,11 @@ module DGP
 
   require 'blockcypher'
 
+  API_SLEEP_TIME = 0.4
+  CURRENCY = "btc"
+  BLOCKCYPHER_API_TOKEN = Rails.application.secrets.blockcypher_api_token
   CONVERT_CURRENCY = Proc.new do |type, x|
-    case type
+    case type.downcase
     when "eth"
       x.to_f / 10**16
     when "btc"
@@ -13,13 +16,35 @@ module DGP
 
   class ChainParser
 
+    class << self
+      def api
+        BlockCypher::Api.new(api_token: BLOCKCYPHER_API_TOKEN)
+      end
+
+      def address_details(address)
+        api.address_details(address)
+      end
+
+      def address_balance(address)
+        api.address_balance(address)
+      end
+
+      def address_full_txs(address*)
+        api.address_full_txs(address)
+      end
+
+      def tx(tx)
+        api.blockchain_transaction(tx)
+      end
+    end
+
     def initialize(wallet)
       @wallet = wallet
       @convert = CONVERT_CURRENCY.curry.(@wallet.currency)
     end
 
     def api
-      BlockCypher::Api.new(currency: @wallet.currency)
+      BlockCypher::Api.new(currency: @wallet.currency, api_token: BLOCKCYPHER_API_TOKEN)
     end
 
     def details
@@ -34,7 +59,7 @@ module DGP
       (txs.map { |tx| tx["tx_hash"] } - @wallet.tx_ids).reverse
     end
 
-    def blockchain_transaction(tx)
+    def tx(tx)
       api.blockchain_transaction(tx)
     end
 
@@ -69,40 +94,5 @@ module DGP
       end
     end
   end #class ChainParser
-
-
-  module Depositor
-
-    class Client
-
-      require 'coinbase/wallet'
-
-      attr_accessor :success
-      
-      KEY         = Rails.application.secrets.coinbase_api_key
-      SECRET      = Rails.application.secrets.coinbase_api_secret
-      ACCOUNT_ID  = Rails.application.secrets.coinbase_account_id
-
-      def initialize(client)
-        @client   = client
-        @wallet   = @client.primary_wallet
-        @address  = @wallet.address
-        @amount   = @client.daily_usd_amount
-        @api      = Coinbase::Wallet::Client.new(api_key: KEY, api_secret: SECRET)
-        @account  = @api.account(ACCOUNT_ID)
-      end
-
-      def deposit
-        if @client.active? && @wallet.primary?
-          @account.send(to: @address, amount: @amount, currency: "USD")
-          self.success = true
-          @api = nil
-        else
-          puts "[ERROR] Deposit failed.\nClientID: #{@client.id} (active: #{@client.active})  WalletID: #{@wallet.id} (primary: #{@wallet.primary})"
-        end
-      end
-
-    end #class Client
-  end #module Depositor
 
 end #module DGP

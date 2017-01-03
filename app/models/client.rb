@@ -10,16 +10,20 @@ class Client < ActiveRecord::Base
     where(active: true)
   end
 
-  def primary_wallets(index=1)
-    index.times.map {|index| hd_master.node_for_path("m/44'/0'/0'/0/#{index}").to_address }
+  def primary_wallets(n=1)
+    n.times.map {|index| hd_master.node_for_path("m/44'/0'/0'/0/#{index}").to_address }
   end
 
-  def change_wallets(index=1)
-    index.times.map {|index| hd_master.node_for_path("m/44'/0'/0'/1/#{index}").to_address }
+  def change_wallets(n=1)
+    n.times.map {|index| hd_master.node_for_path("m/44'/0'/0'/1/#{index}").to_address }
   end
   
-  def primary_wallet
-    hd_master.node_for_path("m/44'/0'/0'/0/0").to_address
+  def primary_wallet(index=0)
+    hd_master.node_for_path("m/44'/0'/0'/0/#{index}").to_address
+  end
+
+  def change_wallet(index=0)
+    hd_master.node_for_path("m/44'/0'/0'/1/#{index}").to_address
   end
 
   private

@@ -1,7 +1,7 @@
 class Wallet < ActiveRecord::Base
   require 'blockcypher'
   belongs_to :transactor, polymorphic: true
-  validates_presence_of :currency, :address
+  validates_presence_of :address
 
   def api
     BlockCypher::Api.new(currency: currency)

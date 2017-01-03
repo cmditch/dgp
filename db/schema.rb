@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170102233952) do
+ActiveRecord::Schema.define(version: 20170103020329) do
 
   create_table "bitpay_webhooks", force: :cascade do |t|
     t.text     "data"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20170102233952) do
     t.boolean  "active"
     t.string   "encrypted_mnemonic"
     t.string   "encrypted_mnemonic_iv"
+    t.float    "total_donations"
   end
 
   add_index "clients", ["gatekeeper_id"], name: "index_clients_on_gatekeeper_id"
@@ -81,14 +82,23 @@ ActiveRecord::Schema.define(version: 20170102233952) do
 
   create_table "wallets", force: :cascade do |t|
     t.string   "address"
-    t.float    "balance"
+    t.integer  "balance"
     t.boolean  "active"
     t.integer  "transactor_id"
     t.string   "transactor_type"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
     t.string   "currency"
     t.boolean  "primary"
+    t.integer  "total_received"
+    t.integer  "total_sent"
+    t.integer  "unconfirmed_balance"
+    t.integer  "final_balance"
+    t.integer  "n_tx"
+    t.integer  "unconfirmed_n_tx"
+    t.integer  "final_n_tx"
+    t.string   "wallet_type"
+    t.integer  "hd_position"
   end
 
   add_index "wallets", ["transactor_type", "transactor_id"], name: "index_wallets_on_transactor_type_and_transactor_id"

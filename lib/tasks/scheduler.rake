@@ -26,7 +26,34 @@ task :daily_deposit => :environment do
   end
 end
 
+desc "Updates database with latest client wallets"
+task :update_client_wallets => :environment do
+  api = BlockCypher::Api.new(api_token: DGP::BLOCKCYPHER_API_TOKEN)
+  Client.all.each do |client|
+    ["primary_wallet", "change_wallet"].each do |type|
+      n = 0
+      loop do
+        client_wallet_details = {transactor_id: client.id, transactor_type: "Client", currency: "btc", wallet_type: type, hd_position: n}
+        address = client.send("#{type}", n)
+        wallet_info = api.address_balance(address).map {|key, value| [key.to_sym, value]}.to_h
+        wallet = Wallet.find_by(address: address)
+        unless wallet_info[:final_n_tx] == 0
+          if wallet.nil?
+            w = Wallet.create(wallet_info.merge(client_wallet_details))
+            p "[DGP-NOTIFY] #{type}  #{w.address}  created for client #{w.transactor.id} (#{w.transactor.name})"
+          else
+            wallet.update(wallet_info.merge({transactor_type: "Client", currency: "btc", wallet_type: type, hd_position: n}))
+            p "[DGP-NOTIFY] #{type}  #{wallet.address}  updated for client #{wallet.transactor.id} (#{wallet.transactor.name})"
+          end
+        end
+        n += 1
+        sleep DGP::API_SLEEP_TIME
+        break if wallet_info[:final_n_tx] == 0
+      end
+    end 
+  end
+end
 
-desc ""
-task :asd
+
+
 
