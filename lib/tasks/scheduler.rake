@@ -12,6 +12,7 @@ task :scrape_the_chain => :environment do
   puts "done."
 end
 
+
 desc "Deposit daily USD to primary wallets of active clients"
 task :daily_deposit => :environment do
   puts "Beginning deposits"
@@ -25,6 +26,7 @@ task :daily_deposit => :environment do
     puts "Deposit Success! { id: #{client.id}, name: #{client.name}, wallet: #{client.primary_wallet.address} }" if depositor.success
   end
 end
+
 
 desc "Updates database with latest client wallets"
 task :update_client_wallets => :environment do
@@ -53,6 +55,8 @@ task :update_client_wallets => :environment do
     end 
   end
 end
+
+#Dear GitHub Viewers, this is a super fast prototype. Sorry for the slop. - cditch
 
 
 
