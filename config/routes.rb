@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :wallets
 
   resources :transactions
+
+  resources :wallets
 
   resources :vendors
 

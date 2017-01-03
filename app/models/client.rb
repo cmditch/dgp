@@ -1,27 +1,35 @@
 class Client < ActiveRecord::Base
-  belongs_to :gatekeeper
+  require 'money-tree'
+  require 'bip_mnemonic'
+  
   has_many :wallets, as: :transactor
+  belongs_to :gatekeeper
   attr_encrypted :mnemonic, key: Rails.application.secrets.encryptor
 
   def self.active
     where(active: true)
   end
 
-  def address_list
-    wallets.map(&:address)
+  def primary_wallets(index=1)
+    index.times.map {|index| hd_master.node_for_path("m/44'/0'/0'/0/#{index}").to_address }
+  end
+
+  def change_wallets(index=1)
+    index.times.map {|index| hd_master.node_for_path("m/44'/0'/0'/1/#{index}").to_address }
   end
   
   def primary_wallet
-    wallet = self.wallets.where(primary: true)
-    if wallet.count > 1
-      # raise "Client #{self.id} has #{wallet.count} primary wallets."
-      raise "ERROR Client #{self.id} (#{self.name}) has too many primary wallets."
-    elsif wallet.count < 1
-      # raise "Client #{self.id} has no primary wallet."
-      raise "ERROR Client #{self.id} (#{self.name}) has no primary wallet."
-    else
-      wallet[0]
-    end
+    hd_master.node_for_path("m/44'/0'/0'/0/0").to_address
+  end
+
+  private
+
+  def seed
+    BipMnemonic.to_seed(mnemonic: mnemonic)
+  end
+
+  def hd_master
+    MoneyTree::Master.new(seed_hex: seed)
   end
 
 end

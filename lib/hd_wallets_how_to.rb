@@ -26,6 +26,7 @@ require 'bip_mnemonic'
 answer = { spend: ["157b6Chf5F6Upqj1FvChZvjjwEuKuWSShm", "1F4xw7q9LSHJRpjRYZZGYeeVVWk8nf9yyp"], 
            change: ["1ERiDn8R7qnqsGsHerKev7XM9nkWoSSFch", "18yXfddYGUJktkuLz8MNRbjjmrXwhLZJw8"]
          }
+         
 result = {spend: [], change: []}
 
 words = "start amused entire check town curtain human clarify police umbrella change uncle"
