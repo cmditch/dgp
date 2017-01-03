@@ -1,5 +1,6 @@
 class Wallet < ActiveRecord::Base
   require 'blockcypher'
+  serialize :last_api_data
   belongs_to :transactor, polymorphic: true
   validates_presence_of :address
 
@@ -18,17 +19,12 @@ class Wallet < ActiveRecord::Base
     save
   end
 
-  def txs
-    address = self.address
-    txs = Transaction.all
-    txs.map { |tx| tx if [tx.sender, tx.recipient].flatten.include?(address) }.compact
-  end
-
-  def tx_ids
-    address = self.address
-    txs = Transaction.all
-    txs.map { |tx| tx.txid if [tx.sender, tx.recipient].flatten.include?(address) }.compact
-  end
+  # rename this methods if needed, deprecated till then
+  # def tx_ids
+  #   address = self.address
+  #   txs = Transaction.all
+  #   txs.map { |tx| tx.txid if [tx.sender, tx.recipient].flatten.include?(address) }.compact
+  # end
 
   def txs_in
     address = self.address

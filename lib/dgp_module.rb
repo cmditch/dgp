@@ -29,7 +29,7 @@ module DGP
         api.address_balance(address)
       end
 
-      def address_full_txs(address*)
+      def address_full_txs(address)
         api.address_full_txs(address)
       end
 

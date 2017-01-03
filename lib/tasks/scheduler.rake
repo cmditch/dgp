@@ -37,14 +37,14 @@ task :update_client_wallets => :environment do
       loop do
         client_wallet_details = {transactor_id: client.id, transactor_type: "Client", currency: "btc", wallet_type: type, hd_position: n}
         address = client.send("#{type}", n)
-        wallet_info = api.address_balance(address).map {|key, value| [key.to_sym, value]}.to_h
+        wallet_info = api.address_full_txs(address).deep_symbolize_keys
         wallet = Wallet.find_by(address: address)
         unless wallet_info[:final_n_tx] == 0
           if wallet.nil?
             w = Wallet.create(wallet_info.merge(client_wallet_details))
             p "[DGP-NOTIFY] #{type}  #{w.address}  created for client #{w.transactor.id} (#{w.transactor.name})"
           else
-            wallet.update(wallet_info.merge({transactor_type: "Client", currency: "btc", wallet_type: type, hd_position: n}))
+            wallet.update(wallet_info.merge(client_wallet_details))
             p "[DGP-NOTIFY] #{type}  #{wallet.address}  updated for client #{wallet.transactor.id} (#{wallet.transactor.name})"
           end
         end

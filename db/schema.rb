@@ -99,6 +99,8 @@ ActiveRecord::Schema.define(version: 20170103020329) do
     t.integer  "final_n_tx"
     t.string   "wallet_type"
     t.integer  "hd_position"
+    t.integer  "last_block_height"
+    t.text     "txs"
   end
 
   add_index "wallets", ["transactor_type", "transactor_id"], name: "index_wallets_on_transactor_type_and_transactor_id"
