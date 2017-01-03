@@ -36,6 +36,7 @@ task :update_client_wallets => :environment do
       n = 0
       loop do
         address = client.send("#{type}", n)
+        wallet_info = api.address_full_txs(address).deep_symbolize_keys
         wallet = Wallet.find_by(address: address)
         block_height = wallet_info[:txs].map{ |tx| tx[:block_height] }.max
         client_wallet_details = {
@@ -46,14 +47,14 @@ task :update_client_wallets => :environment do
            hd_position: n, 
            last_block_height: block_height
          }
-        wallet_info = api.address_full_txs(address).deep_symbolize_keys.merge(client_wallet_details)
+        wallet_info = wallet_info.merge(client_wallet_details)
         unless wallet_info[:final_n_tx] == 0
           if wallet.nil?
             w = Wallet.create(wallet_info)
-            p "[DGP-NOTIFY] #{type}  #{w.address}  created for client #{w.transactor.id} (#{w.transactor.name})"
+            p "[DGP-NOTIFY] #{type} #{w.address} created for client #{w.transactor.id} (#{w.transactor.name})"
           else
             wallet.update(wallet_info)
-            p "[DGP-NOTIFY] #{type}  #{wallet.address}  updated for client #{wallet.transactor.id} (#{wallet.transactor.name})"
+            p "[DGP-NOTIFY] #{type} #{wallet.address} updated for client #{wallet.transactor.id} (#{wallet.transactor.name})"
           end
         end
         n += 1
