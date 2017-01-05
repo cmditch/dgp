@@ -1,7 +1,7 @@
 class Transaction < ActiveRecord::Base
-  serialize :sender
-  serialize :recipient
-
+  serialize :addresses
+  serialize :inputs
+  serialize :outputs
   before_save :format_address
 
 
@@ -21,7 +21,6 @@ class Transaction < ActiveRecord::Base
   private
 
   def format_address
-    puts self.currency
     case self.currency
     when "eth"
       self.sender = self.sender.map { |address| address.prepend("0x") }

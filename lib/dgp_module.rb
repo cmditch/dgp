@@ -1,6 +1,6 @@
 module DGP
-
   require 'blockcypher'
+
 
   API_SLEEP_TIME = 0.4
   CURRENCY = "btc"
@@ -13,6 +13,28 @@ module DGP
       x.to_f / 10**8
     end
   end
+
+  class TransactionFactory
+
+    def initialize(txs)
+      @txs = txs
+    end
+
+    def save
+      @txs.each do |raw_tx|
+        raw_tx[:txid] = raw_tx.delete(:hash)
+        tx = Transaction.new
+        tx.attributes = raw_tx.reject{ |k,v| !tx.attributes.keys.member?(k.to_s) }
+        if Transaction.find_by(txid: raw_tx[:txid])
+          "[DGP-NOTIFY] Transaction found, but already in database."
+        else
+          if tx.save then p "[DGP-NOTIFY] Transaction created #{tx.txid}" else p "[DGP-NOTIFY] Error adding txid: #{raw_tx[:txid]}" end
+        end
+      end
+    end
+
+  end
+
 
   class ChainParser
 
@@ -94,5 +116,9 @@ module DGP
       end
     end
   end #class ChainParser
+
+
+
+
 
 end #module DGP
