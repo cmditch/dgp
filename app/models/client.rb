@@ -3,6 +3,7 @@ class Client < ActiveRecord::Base
   require 'bip_mnemonic'
   
   has_many :wallets, as: :transactor
+  has_many :transactions, through: :wallets
   belongs_to :gatekeeper
   attr_encrypted :mnemonic, key: Rails.application.secrets.encryptor
 

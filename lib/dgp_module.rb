@@ -16,13 +16,16 @@ module DGP
 
   class TransactionFactory
 
+    attr_accessor :wallet_id
+
     def initialize(txs)
       @txs = txs
     end
 
     def save
       @txs.each do |raw_tx|
-        raw_tx[:txid] = raw_tx.delete(:hash)
+        raw_tx[:txid]       = raw_tx.delete(:hash)
+        raw_tx[:wallet_id]  = wallet_id
         tx = Transaction.new
         tx.attributes = raw_tx.reject{ |k,v| !tx.attributes.keys.member?(k.to_s) }
         if Transaction.find_by(txid: raw_tx[:txid])

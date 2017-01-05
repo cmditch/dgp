@@ -13,5 +13,6 @@ class AddStuffToTransaction < ActiveRecord::Migration
     add_column :transactions, :confirmations, :integer
     add_column :transactions, :inputs, :text
     add_column :transactions, :outputs, :text
+    add_reference :transactions, :wallet, index:true 
   end
 end

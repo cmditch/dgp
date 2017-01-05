@@ -3,6 +3,7 @@ class Transaction < ActiveRecord::Base
   serialize :inputs
   serialize :outputs
   before_save :format_address
+  belongs_to :wallet
 
 
   def self.list

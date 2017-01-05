@@ -57,7 +57,10 @@ ActiveRecord::Schema.define(version: 20170105005859) do
     t.integer  "confirmations"
     t.text     "inputs"
     t.text     "outputs"
+    t.integer  "wallet_id"
   end
+
+  add_index "transactions", ["wallet_id"], name: "index_transactions_on_wallet_id"
 
   create_table "users", force: :cascade do |t|
     t.integer  "gatekeeper_id"

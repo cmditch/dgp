@@ -32,28 +32,32 @@ desc "Updates database with latest client wallets and transactions"
 task :update_client_wallets => :environment do
   blockcypher_request = BlockCypher::Api.new(api_token: DGP::BLOCKCYPHER_API_TOKEN)
   Client.all.each do |client|
-    p "Starting with #{client.name}"
     ["primary_wallet", "change_wallet"].each do |type|
-      p "Parsing #{client.name} #{type}"
+      p "Parsing #{client.name}'s #{type}"
       n = 0
       loop do
         sleep DGP::API_SLEEP_TIME
         address               =   client.send("#{type}", n)
         wallet                =   Wallet.find_by(address: address)
+        wallet_id             =   wallet.id unless wallet.nil?
         wallet_block_height   =   wallet.last_block_height unless wallet.nil?
         endpoint_data         =   blockcypher_request.address_full_txs(address, after: wallet_block_height).deep_symbolize_keys
         tx_block_height       =   endpoint_data[:txs].map{ |tx| tx[:block_height] }.max
-        extra_wallet_details  =   { transactor_id: client.id, transactor_type: "Client", currency: "btc", wallet_type: type, hd_position: n }
+        tx_block_height     ||=   0
+        extra_wallet_details  =   { transactor_id: client.id, transactor_type: "Client", currency: "btc", wallet_type: type, hd_position: n, last_block_height: tx_block_height + 1 }
         endpoint_data.merge!(extra_wallet_details)
-        break if endpoint_data[:final_n_tx] == 0
+        if endpoint_data[:final_n_tx] == 0 then p "No new TX's for #{client.name}'s #{type}"; break end
         if wallet.nil?
           w = Wallet.create(endpoint_data)
+          wallet_id = w.id
           p "[DGP-NOTIFY] Created #{type} #{w.address} for client #{w.transactor.id} (#{w.transactor.name})"
         else
-          wallet.update(endpoint_data.merge({ last_block_height: tx_block_height + 1 }))
+          wallet.update(endpoint_data)
           p "[DGP-NOTIFY] Updated #{type} #{wallet.address} for client #{wallet.transactor.id} (#{wallet.transactor.name})"
         end
-        DGP::TransactionFactory.new(endpoint_data[:txs]).save unless endpoint_data[:txs].empty?
+        txs = DGP::TransactionFactory.new(endpoint_data[:txs]) unless endpoint_data[:txs].empty?
+        txs.wallet_id = wallet_id if !wallet_id.nil?
+        txs.save 
         n += 1
       end #end of loop
     end #each wallet type iterated
