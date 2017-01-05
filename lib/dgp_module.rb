@@ -26,9 +26,9 @@ module DGP
         tx = Transaction.new
         tx.attributes = raw_tx.reject{ |k,v| !tx.attributes.keys.member?(k.to_s) }
         if Transaction.find_by(txid: raw_tx[:txid])
-          "[DGP-NOTIFY] Transaction found, but already in database."
+          p "[DGP-NOTIFY] TX already exists in database. txid: #{raw_tx[:txid]}"
         else
-          if tx.save then p "[DGP-NOTIFY] Transaction created #{tx.txid}" else p "[DGP-NOTIFY] Error adding txid: #{raw_tx[:txid]}" end
+          if tx.save then p "[DGP-NOTIFY] Created Transaction. txid: #{tx.txid}" else p "[DGP-NOTIFY] Error adding transaction. txid: #{raw_tx[:txid]}" end
         end
       end
     end
