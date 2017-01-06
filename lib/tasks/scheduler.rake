@@ -43,10 +43,11 @@ task :update_client_wallets => :environment do
         wallet_block_height   =   wallet.last_block_height unless wallet.nil?
         endpoint_data         =   blockcypher_request.address_full_txs(address, after: wallet_block_height).deep_symbolize_keys
         tx_block_height       =   endpoint_data[:txs].map{ |tx| tx[:block_height] }.max
-        tx_block_height     ||=   0
-        extra_wallet_details  =   { transactor_id: client.id, transactor_type: "Client", currency: "btc", wallet_type: type, hd_position: n, last_block_height: tx_block_height + 1 }
+        tx_block_height      ||=  0
+        extra_wallet_details  =   { transactor_id: client.id, transactor_type: "Client", currency: "btc", wallet_type: type, hd_position: n, last_block_height: tx_block_height }
         endpoint_data.merge!(extra_wallet_details)
-        if endpoint_data[:final_n_tx] == 0 then p "No new TX's for #{client.name}'s #{type}"; break end
+        p "No new TX's for #{client.name}'s #{type}" if endpoint_data[:final_n_tx] == 0 && n == 0
+        break if endpoint_data[:final_n_tx] == 0
         if wallet.nil?
           w = Wallet.create(endpoint_data)
           wallet_id = w.id

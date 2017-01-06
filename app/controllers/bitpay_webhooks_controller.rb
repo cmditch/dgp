@@ -65,11 +65,17 @@ class BitpayWebhooksController < ApplicationController
 
     # POST /bitpay.json
   def receive
-    p bitpay_notification           = params.deep_symbolize_keys.merge({data: params})
+    bitpay_notification             = params.deep_symbolize_keys.merge({data: params})
     bitpay_notification[:bitpay_id] = bitpay_notification.delete(:id)
-    bitpay_webhook = BitpayWebhook.new
-    bitpay_webhook.attributes = bitpay_notification.reject{ |k,v| !bitpay_webhook.attributes.keys.member?(k.to_s) }
-    if bitpay_webhook.save then p "[DGP-NOTIFY] Bitpay transaction made. #{bitpay_notification[:url]}" else p "[DGP-NOTIFY] Bitpay webhook failure #{params}" end
+    unless BitpayWebhook.find_by(bitpay_id: bitpay_notification[:bitpay_id]
+      bitpay_webhook                  = BitpayWebhook.new
+      bitpay_webhook.attributes       = bitpay_notification.reject{ |k,v| !bitpay_webhook.attributes.keys.member?(k.to_s) }
+      if bitpay_webhook.save
+        p "[DGP-NOTIFY] Bitpay transaction made. #{bitpay_notification[:url]}" 
+      else 
+        p "[DGP-NOTIFY] Bitpay webhook failure #{params}" 
+      end
+    end
     render nothing: true
   end
 

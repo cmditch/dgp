@@ -28,9 +28,7 @@ module DGP
         raw_tx[:wallet_id]  = wallet_id
         tx = Transaction.new
         tx.attributes = raw_tx.reject{ |k,v| !tx.attributes.keys.member?(k.to_s) }
-        if Transaction.find_by(txid: raw_tx[:txid])
-          p "[DGP-NOTIFY] TX already exists in database. txid: #{raw_tx[:txid]}"
-        else
+        unless Transaction.find_by(txid: raw_tx[:txid])
           if tx.save then p "[DGP-NOTIFY] Created Transaction. txid: #{tx.txid}" else p "[DGP-NOTIFY] Error adding transaction. txid: #{raw_tx[:txid]}" end
         end
       end
