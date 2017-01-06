@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170105214723) do
+ActiveRecord::Schema.define(version: 20170106072703) do
 
   create_table "bitpay_webhooks", force: :cascade do |t|
     t.text     "data"
@@ -31,6 +31,8 @@ ActiveRecord::Schema.define(version: 20170105214723) do
     t.float    "rate"
     t.boolean  "exceptionStatus"
     t.text     "buyerFields"
+    t.text     "transactions"
+    t.string   "orderId"
   end
 
   create_table "clients", force: :cascade do |t|
@@ -78,6 +80,7 @@ ActiveRecord::Schema.define(version: 20170105214723) do
     t.text     "inputs"
     t.text     "outputs"
     t.integer  "wallet_id"
+    t.boolean  "validated"
   end
 
   add_index "transactions", ["wallet_id"], name: "index_transactions_on_wallet_id"

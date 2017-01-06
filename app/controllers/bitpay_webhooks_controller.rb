@@ -1,7 +1,7 @@
 class BitpayWebhooksController < ApplicationController
   before_action :set_bitpay_webhook, only: [:show, :edit, :update, :destroy]
-  skip_before_action :verify_authenticity_token
-  skip_before_action :authenticate_user!
+  skip_before_action :verify_authenticity_token, only: [:receive]
+  skip_before_action :authenticate_user!, only: [:receive]
 
   # GET /bitpay_webhooks
   # GET /bitpay_webhooks.json
@@ -65,15 +65,27 @@ class BitpayWebhooksController < ApplicationController
 
     # POST /bitpay.json
   def receive
+    params.delete("bitpay_webhook")
     bitpay_notification             = params.deep_symbolize_keys.merge({data: params})
     bitpay_notification[:bitpay_id] = bitpay_notification.delete(:id)
+
     unless BitpayWebhook.find_by(bitpay_id: bitpay_notification[:bitpay_id])
       bitpay_webhook                  = BitpayWebhook.new
       bitpay_webhook.attributes       = bitpay_notification.reject{ |k,v| !bitpay_webhook.attributes.keys.member?(k.to_s) }
       if bitpay_webhook.save
         p "[DGP-NOTIFY] Bitpay transaction made. #{bitpay_notification[:url]}" 
       else 
-        p "[DGP-NOTIFY] Bitpay webhook failure #{params}" 
+        p "[DGP-WARNING] Bitpay webhook failure #{params}" 
+      end
+
+      client  = BitPay::SDK::Client.new(pem: Rails.application.secrets.bitpay_pem)
+      invoice = client.get_invoice(id: bitpay_webhook.bitpay_id).deep_symbolize_keys
+
+      if bitpay_webhook.update(transactions: invoice[:transactions], orderId: invoice[:orderId])
+        p "[DGP-NOTIFY] Bitpay API success for Invoice #{bitpay_webhook.bitpay_id}"
+        bitpay_webhook.validate_client_txs
+      else
+        p "[DGP-WARNING] Bitpay API FAILURE for Invoice #{bitpay_webhook.bitpay_id}"
       end
     end
     render nothing: true

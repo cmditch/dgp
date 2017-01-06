@@ -4,6 +4,7 @@ class Transaction < ActiveRecord::Base
   serialize :outputs
   before_save :format_address
   belongs_to :wallet
+  has_one :transactor, through: :wallet, source_type: "Client"
 
 
   def self.list

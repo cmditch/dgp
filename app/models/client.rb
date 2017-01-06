@@ -11,6 +11,23 @@ class Client < ActiveRecord::Base
     where(active: true)
   end
 
+  def balance(currency = :usd)
+    case currency
+    when :usd
+      usd_balance
+    when :btc
+      btc_balance
+    end
+  end
+
+  def btc_balance
+    wallets.map(&:final_balance).reduce(:+).to_f / (10 ** 8)
+  end
+
+  def usd_balance
+    (btc_balance * BitpayWebhook.last.rate).round(2)
+  end
+
   def primary_wallets(n=1)
     n.times.map {|index| hd_master.node_for_path("m/44'/0'/0'/0/#{index}").to_address }
   end

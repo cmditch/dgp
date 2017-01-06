@@ -20,7 +20,7 @@
       end
 
       def deposit
-        if @client.active? && @wallet.primary?
+        if @client.active?
           @account.send(to: @address, amount: @amount, currency: "USD")
           self.success = true
           @api = nil
