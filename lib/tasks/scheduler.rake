@@ -56,7 +56,7 @@ task :update_client_wallets => :environment do
           wallet.update(endpoint_data)
           p "[DGP-NOTIFY] Updated #{type} #{wallet.address} for client #{wallet.transactor.id} (#{wallet.transactor.name})"
         end
-        txs = DGP::TransactionFactory.new(endpoint_data[:txs])
+        txs = DGP::TransactionsFactory.new(endpoint_data[:txs])
         txs.wallet_id = wallet_id if !wallet_id.nil?
         txs.save 
         n += 1

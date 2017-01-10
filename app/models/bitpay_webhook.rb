@@ -2,6 +2,10 @@ class BitpayWebhook < ActiveRecord::Base
   serialize :data
   serialize :transactions
 
+  def self.tx_ids
+    all.map { |x| x.tx_ids }.flatten
+  end
+
   def self.validate_client_txs
     n = 0
     bitpay_invoice_txids = self.all.map(&:transactions).compact.flatten.map { |tx| tx[:txid] }
@@ -17,6 +21,10 @@ class BitpayWebhook < ActiveRecord::Base
       end
     end
     p "[DGP-NOTIFY] #{n} txs validated at #{Time.now}" if n > 0
+  end
+
+  def tx_ids
+    self.transactions.map { |tx| tx[:txid] }
   end
 
   def validate_client_txs

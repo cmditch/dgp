@@ -20,14 +20,6 @@ class Client < ActiveRecord::Base
     end
   end
 
-  def btc_balance
-    wallets.map(&:final_balance).reduce(:+).to_f / (10 ** 8)
-  end
-
-  def usd_balance
-    (btc_balance * BitpayWebhook.last.rate).round(2)
-  end
-
   def primary_wallets(n=1)
     n.times.map {|index| hd_master.node_for_path("m/44'/0'/0'/0/#{index}").to_address }
   end
@@ -44,6 +36,10 @@ class Client < ActiveRecord::Base
     hd_master.node_for_path("m/44'/0'/0'/1/#{index}").to_address
   end
 
+  def used_addresses
+    self.wallets.map(&:address)
+  end
+
   private
 
   def seed
@@ -52,6 +48,14 @@ class Client < ActiveRecord::Base
 
   def hd_master
     MoneyTree::Master.new(seed_hex: seed)
+  end
+
+  def btc_balance
+    wallets.map(&:final_balance).reduce(:+).to_f / (10 ** 8)
+  end
+
+  def usd_balance
+    (btc_balance * BitpayWebhook.last.rate).round(2)
   end
 
 end

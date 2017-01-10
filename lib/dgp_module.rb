@@ -1,11 +1,6 @@
 module DGP
   require 'blockcypher'
 
-  def self.bitpay_pair
-    p BitPay::SDK::Client.new(pem: Rails.application.secrets.bitpay_pem).pair_client.first["pairingCode"]
-  end
-
-
   API_SLEEP_TIME = 0.4
   CURRENCY = "btc"
   BLOCKCYPHER_API_TOKEN = Rails.application.secrets.blockcypher_api_token
@@ -18,8 +13,12 @@ module DGP
     end
   end
 
-  class TransactionFactory
+  def self.bitpay_pair
+    p BitPay::SDK::Client.new(pem: Rails.application.secrets.bitpay_pem).pair_client.first["pairingCode"]
+  end
 
+
+  class TransactionsFactory
     attr_accessor :wallet_id
 
     def initialize(txs)
@@ -34,10 +33,10 @@ module DGP
         tx.attributes = raw_tx.reject{ |k,v| !tx.attributes.keys.member?(k.to_s) }
         unless Transaction.find_by(txid: raw_tx[:txid])
           if tx.save then p "[DGP-NOTIFY] Created Transaction. txid: #{tx.txid}" else p "[DGP-NOTIFY] Error adding transaction. txid: #{raw_tx[:txid]}" end
+          tx.validate
         end
       end
     end
-
   end
 
 
