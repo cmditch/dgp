@@ -28,6 +28,7 @@ gem 'pry-rails'
 gem 'devise'
 gem 'twitter-bootstrap-rails'
 gem "attr_encrypted", "~> 3.0.0"
+gem 'twilio-ruby'
 
 gem 'coinbase'
 gem 'bitpay-sdk', :require => 'bitpay_sdk'

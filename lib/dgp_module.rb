@@ -1,6 +1,10 @@
 module DGP
   require 'blockcypher'
 
+  def self.bitpay_pair
+    p BitPay::SDK::Client.new(pem: Rails.application.secrets.bitpay_pem).pair_client.first["pairingCode"]
+  end
+
 
   API_SLEEP_TIME = 0.4
   CURRENCY = "btc"
