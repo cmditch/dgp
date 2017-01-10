@@ -7,9 +7,10 @@ class Transaction < ActiveRecord::Base
   has_one :transactor, through: :wallet, source_type: "Client"
 
   def self.validate
-    n = 0
-    all.each { |tx| n += 1 if tx.validate }
-    puts "#{n} transactions updated."
+    before = "Before: #{self.validated?.count} valid. #{self.count - self.validated?.count} not valid."
+    all.each(&:validate)
+    after  = "After: #{self.validated?.count} valid. #{self.count - self.validated?.count} not valid."
+    puts before, after
   end
 
   def self.list
