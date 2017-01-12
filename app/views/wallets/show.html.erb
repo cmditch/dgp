@@ -14,6 +14,32 @@
   <dd><%= @wallet.transactor_id %></dd>
   <dt><strong><%= model_class.human_attribute_name(:transactor_type) %>:</strong></dt>
   <dd><%= @wallet.transactor_type %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:currency) %>:</strong></dt>
+  <dd><%= @wallet.currency %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:primary) %>:</strong></dt>
+  <dd><%= @wallet.primary %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:total_received) %>:</strong></dt>
+  <dd><%= @wallet.total_received %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:total_sent) %>:</strong></dt>
+  <dd><%= @wallet.total_sent %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:unconfirmed_balance) %>:</strong></dt>
+  <dd><%= @wallet.unconfirmed_balance %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:final_balance) %>:</strong></dt>
+  <dd><%= @wallet.final_balance %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:n_tx) %>:</strong></dt>
+  <dd><%= @wallet.n_tx %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:unconfirmed_n_tx) %>:</strong></dt>
+  <dd><%= @wallet.unconfirmed_n_tx %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:final_n_tx) %>:</strong></dt>
+  <dd><%= @wallet.final_n_tx %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:wallet_type) %>:</strong></dt>
+  <dd><%= @wallet.wallet_type %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:hd_position) %>:</strong></dt>
+  <dd><%= @wallet.hd_position %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:last_block_height) %>:</strong></dt>
+  <dd><%= @wallet.last_block_height %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:txs) %>:</strong></dt>
+  <dd><%= @wallet.txs %></dd>
 </dl>
 
 <%= link_to t('.back', :default => t("helpers.links.back")),

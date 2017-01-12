@@ -29,6 +29,41 @@
     </div>
     <%=f.error_span(:gatekeeper_id) %>
   </div>
+  <div class="form-group">
+    <%= f.label :daily_usd_amount, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :daily_usd_amount, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:daily_usd_amount) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :active, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :active, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:active) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :encrypted_mnemonic, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :encrypted_mnemonic, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:encrypted_mnemonic) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :encrypted_mnemonic_iv, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :encrypted_mnemonic_iv, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:encrypted_mnemonic_iv) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :total_donations, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :total_donations, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:total_donations) %>
+  </div>
 
   <div class="form-group">
     <div class="col-lg-offset-2 col-lg-10">

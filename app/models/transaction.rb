@@ -21,6 +21,14 @@ class Transaction < ActiveRecord::Base
     where(validated: true)
   end
 
+  def total_usd_price
+    (usd_spot_price * (total.to_f / 10**8)).round(2)
+  end
+
+  def fees_usd_price
+    (usd_spot_price * (fees.to_f / 10**8)).round(2)
+  end
+
   def senders
     self.inputs.map{ |inputs| inputs[:addresses] }.flatten
   end

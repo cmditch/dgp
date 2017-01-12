@@ -31,6 +31,7 @@ end
 desc "Updates database with latest client wallets and transactions"
 task :update_client_wallets => :environment do
   blockcypher_request = BlockCypher::Api.new(api_token: DGP::BLOCKCYPHER_API_TOKEN)
+  DGP::MarketData.update_usd_btc_spot_price
   Client.all.each do |client|
     ["primary_wallet", "change_wallet"].each do |type|
       p "Parsing #{client.name}'s #{type}"

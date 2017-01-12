@@ -8,6 +8,16 @@
   <dd><%= @client.name %></dd>
   <dt><strong><%= model_class.human_attribute_name(:gatekeeper_id) %>:</strong></dt>
   <dd><%= @client.gatekeeper_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:daily_usd_amount) %>:</strong></dt>
+  <dd><%= @client.daily_usd_amount %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:active) %>:</strong></dt>
+  <dd><%= @client.active %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:encrypted_mnemonic) %>:</strong></dt>
+  <dd><%= @client.encrypted_mnemonic %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:encrypted_mnemonic_iv) %>:</strong></dt>
+  <dd><%= @client.encrypted_mnemonic_iv %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:total_donations) %>:</strong></dt>
+  <dd><%= @client.total_donations %></dd>
 </dl>
 
 <%= link_to t('.back', :default => t("helpers.links.back")),

@@ -23,39 +23,123 @@
     <%=f.error_span(:txid) %>
   </div>
   <div class="form-group">
-    <%= f.label :sender, :class => 'control-label col-lg-2' %>
+    <%= f.label :currency, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
-      <%= f.text_field :sender, :class => 'form-control' %>
+      <%= f.text_field :currency, :class => 'form-control' %>
     </div>
-    <%=f.error_span(:sender) %>
+    <%=f.error_span(:currency) %>
   </div>
   <div class="form-group">
-    <%= f.label :recipient, :class => 'control-label col-lg-2' %>
+    <%= f.label :block_hash, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
-      <%= f.text_field :recipient, :class => 'form-control' %>
+      <%= f.text_field :block_hash, :class => 'form-control' %>
     </div>
-    <%=f.error_span(:recipient) %>
+    <%=f.error_span(:block_hash) %>
   </div>
   <div class="form-group">
-    <%= f.label :amount, :class => 'control-label col-lg-2' %>
+    <%= f.label :block_height, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
-      <%= f.text_field :amount, :class => 'form-control' %>
+      <%= f.text_field :block_height, :class => 'form-control' %>
     </div>
-    <%=f.error_span(:amount) %>
+    <%=f.error_span(:block_height) %>
   </div>
   <div class="form-group">
-    <%= f.label :time, :class => 'control-label col-lg-2' %>
+    <%= f.label :addresses, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
-      <%= f.text_field :time, :class => 'form-control' %>
+      <%= f.text_field :addresses, :class => 'form-control' %>
     </div>
-    <%=f.error_span(:time) %>
+    <%=f.error_span(:addresses) %>
   </div>
   <div class="form-group">
-    <%= f.label :block_id, :class => 'control-label col-lg-2' %>
+    <%= f.label :total, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
-      <%= f.text_field :block_id, :class => 'form-control' %>
+      <%= f.text_field :total, :class => 'form-control' %>
     </div>
-    <%=f.error_span(:block_id) %>
+    <%=f.error_span(:total) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :fees, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :fees, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:fees) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :size, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :size, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:size) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :preference, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :preference, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:preference) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :relayed_by, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :relayed_by, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:relayed_by) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :confirmed, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :confirmed, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:confirmed) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :received, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :received, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:received) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :confirmations, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :confirmations, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:confirmations) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :inputs, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :inputs, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:inputs) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :outputs, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :outputs, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:outputs) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :wallet_id, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :wallet_id, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:wallet_id) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :validated, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :validated, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:validated) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :client_was, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :client_was, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:client_was) %>
   </div>
 
   <div class="form-group">

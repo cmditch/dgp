@@ -16,7 +16,7 @@
       <tr>
         <td><%= link_to gatekeeper.id, gatekeeper_path(gatekeeper) %></td>
         <td><%= gatekeeper.name %></td>
-        <td><%=l gatekeeper.created_at.to_date %></td>
+        <td><%=l gatekeeper.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_gatekeeper_path(gatekeeper), :class => 'btn btn-default btn-xs' %>

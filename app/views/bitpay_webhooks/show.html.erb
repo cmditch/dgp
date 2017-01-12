@@ -6,6 +6,40 @@
 <dl class="dl-horizontal">
   <dt><strong><%= model_class.human_attribute_name(:data) %>:</strong></dt>
   <dd><%= @bitpay_webhook.data %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:url) %>:</strong></dt>
+  <dd><%= @bitpay_webhook.url %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:bitpay_id) %>:</strong></dt>
+  <dd><%= @bitpay_webhook.bitpay_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:status) %>:</strong></dt>
+  <dd><%= @bitpay_webhook.status %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:btcPrice) %>:</strong></dt>
+  <dd><%= @bitpay_webhook.btcPrice %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:price) %>:</strong></dt>
+  <dd><%= @bitpay_webhook.price %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:currency) %>:</strong></dt>
+  <dd><%= @bitpay_webhook.currency %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:invoiceTime) %>:</strong></dt>
+  <dd><%= @bitpay_webhook.invoiceTime %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:expirationTime) %>:</strong></dt>
+  <dd><%= @bitpay_webhook.expirationTime %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:currentTime) %>:</strong></dt>
+  <dd><%= @bitpay_webhook.currentTime %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:btcPaid) %>:</strong></dt>
+  <dd><%= @bitpay_webhook.btcPaid %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:btcDue) %>:</strong></dt>
+  <dd><%= @bitpay_webhook.btcDue %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:rate) %>:</strong></dt>
+  <dd><%= @bitpay_webhook.rate %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:exceptionStatus) %>:</strong></dt>
+  <dd><%= @bitpay_webhook.exceptionStatus %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:buyerFields) %>:</strong></dt>
+  <dd><%= @bitpay_webhook.buyerFields %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:transactions) %>:</strong></dt>
+  <dd><%= @bitpay_webhook.transactions %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:orderId) %>:</strong></dt>
+  <dd><%= @bitpay_webhook.orderId %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:txid) %>:</strong></dt>
+  <dd><%= @bitpay_webhook.txid %></dd>
 </dl>
 
 <%= link_to t('.back', :default => t("helpers.links.back")),

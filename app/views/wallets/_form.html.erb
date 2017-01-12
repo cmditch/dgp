@@ -50,6 +50,97 @@
     </div>
     <%=f.error_span(:transactor_type) %>
   </div>
+  <div class="form-group">
+    <%= f.label :currency, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :currency, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:currency) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :primary, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :primary, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:primary) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :total_received, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :total_received, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:total_received) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :total_sent, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :total_sent, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:total_sent) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :unconfirmed_balance, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :unconfirmed_balance, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:unconfirmed_balance) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :final_balance, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :final_balance, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:final_balance) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :n_tx, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :n_tx, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:n_tx) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :unconfirmed_n_tx, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :unconfirmed_n_tx, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:unconfirmed_n_tx) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :final_n_tx, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :final_n_tx, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:final_n_tx) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :wallet_type, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :wallet_type, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:wallet_type) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :hd_position, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :hd_position, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:hd_position) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :last_block_height, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :last_block_height, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:last_block_height) %>
+  </div>
+  <div class="form-group">
+    <%= f.label :txs, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= f.text_field :txs, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:txs) %>
+  </div>
 
   <div class="form-group">
     <div class="col-lg-offset-2 col-lg-10">

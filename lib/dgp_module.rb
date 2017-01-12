@@ -17,6 +17,33 @@ module DGP
     p BitPay::SDK::Client.new(pem: Rails.application.secrets.bitpay_pem).pair_client.first["pairingCode"]
   end
 
+  class MarketData
+    require 'coinbase/wallet'
+
+    KEY     = Rails.application.secrets.coinbase_api_key
+    SECRET  = Rails.application.secrets.coinbase_api_secret
+
+    class << self
+      attr_accessor :usd_btc_spot_price
+
+      def update_usd_btc_spot_price
+        self.usd_btc_spot_price = api.spot_price({currency_pair: 'BTC-USD'})["amount"].to_f
+      end
+
+      def historical_spot_price(date=Date.today.to_s)
+        date = date.to_s
+        price = api.spot_price({currency_pair: 'BTC-USD', date: date})
+        price["amount"].to_f
+      end
+
+      private
+
+      def api
+        Coinbase::Wallet::Client.new(api_key: KEY, api_secret: SECRET)
+      end
+
+    end
+  end
 
   class TransactionsFactory
     attr_accessor :wallet_id
@@ -31,6 +58,7 @@ module DGP
         raw_tx[:wallet_id]  = wallet_id
         tx = Transaction.new
         tx.attributes = raw_tx.reject{ |k,v| !tx.attributes.keys.member?(k.to_s) }
+        tx.usd_spot_price = DGP::MarketData.historical_spot_price(tx.received.to_date.to_s)
         unless Transaction.find_by(txid: raw_tx[:txid])
           if tx.save then p "[DGP-NOTIFY] Created Transaction. txid: #{tx.txid}" else p "[DGP-NOTIFY] Error adding transaction. txid: #{raw_tx[:txid]}" end
           tx.validate
@@ -120,9 +148,5 @@ module DGP
       end
     end
   end #class ChainParser
-
-
-
-
 
 end #module DGP

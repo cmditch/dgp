@@ -13,7 +13,7 @@ Rails.application.routes.draw do
 
   resources :bitpay_webhooks
 
-  root "gatekeepers#index"
+  root "clients#index"
 
   post '/bitpay' => 'bitpay_webhooks#receive', as: :bitpay_notification
 

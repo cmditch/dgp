@@ -8,6 +8,9 @@
       <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:name) %></th>
       <th><%= model_class.human_attribute_name(:gatekeeper_id) %></th>
+      <th><%= model_class.human_attribute_name(:daily_usd_amount) %></th>
+      <th><%= model_class.human_attribute_name(:active) %></th>
+      <th><%= model_class.human_attribute_name(:total_donations) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
@@ -18,7 +21,10 @@
         <td><%= link_to client.id, client_path(client) %></td>
         <td><%= client.name %></td>
         <td><%= client.gatekeeper_id %></td>
-        <td><%=l client.created_at.to_date %></td>
+        <td><%= client.daily_usd_amount %></td>
+        <td><%= client.active %></td>
+        <td><%= client.total_donations %></td>
+        <td><%=l client.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_client_path(client), :class => 'btn btn-default btn-xs' %>

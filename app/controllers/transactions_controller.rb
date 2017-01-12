@@ -4,7 +4,8 @@ class TransactionsController < ApplicationController
   # GET /transactions
   # GET /transactions.json
   def index
-    @transactions = Transaction.all
+    @spot_price   = DGP::MarketData.usd_btc_spot_price
+    @transactions = Transaction.all.sort_by { |tx| tx.received }.reverse
   end
 
   # GET /transactions/1
