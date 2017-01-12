@@ -20,7 +20,6 @@
       def deposit
         if @client.active?
           if @account.send(to: @address, amount: @amount, currency: "USD")
-            puts "[DGP-NOTIFY] Depositing to #{@client.name} (#{@client.id})"
             self.success = true
             puts "[DGP-NOTIFY] Depositing to #{@client.name} (#{@client.id}) success!"
             @api = nil
