@@ -25,11 +25,13 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'seed_dump'
 gem 'pry-rails'
 
+# gem 'dotenv-rails', :groups => [:development, :test], :require => 'dotenv/rails-now'
 gem 'devise'
 gem 'twitter-bootstrap-rails'
 gem "attr_encrypted", "~> 3.0.0"
 gem 'twilio-ruby'
 gem "font-awesome-rails"
+
 
 gem 'coinbase'
 gem 'bitpay-sdk', :require => 'bitpay_sdk'
@@ -60,6 +62,7 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
   gem 'sqlite3'
+  gem 'dotenv-rails'
 
   # Access an IRB console on exception pages or by using <%= console %> in views
  

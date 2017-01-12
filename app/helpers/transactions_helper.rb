@@ -5,24 +5,15 @@ module TransactionsHelper
   end
 
   def tx_link(tx)
-    case tx.currency
-    when "btc"
-      "https://blockchain.info/tx/#{tx.txid}"
-    end
+    "https://blockchain.info/tx/#{tx.txid}"
   end
 
   def recipient_link(tx)
-    case tx.currency
-    when "btc"
-      "https://blockchain.info/address/#{tx.recipient.first}"
-    end
+    "https://blockchain.info/address/#{tx.recipient.first}"
   end
 
   def sender_link(tx)
-    case tx.currency
-    when "btc"
-      "https://blockchain.info/address/#{tx.sender.first}"
-    end
+    "https://blockchain.info/address/#{tx.sender.first}"
   end
 
 end

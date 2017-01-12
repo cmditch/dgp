@@ -46,6 +46,7 @@
           <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand" href="/">DGP</a>
+        <a class="navbar-brand" href="https://www.coinbase.com/charts" style="padding-left: 50px;font-size: small;color: green;">BTC: $<%= DGP::MarketData.usd_btc_spot_price %></a>
         <% if user_signed_in? %>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
           <ul class="nav navbar-nav" style="float: right;">

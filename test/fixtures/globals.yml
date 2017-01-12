@@ -1,0 +1,7 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  btc_usd_spot_price: 1.5
+
+two:
+  btc_usd_spot_price: 1.5

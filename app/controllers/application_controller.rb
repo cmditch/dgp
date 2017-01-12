@@ -10,4 +10,5 @@ class ApplicationController < ActionController::Base
   def update_spot_price
     DGP::MarketData.update_usd_btc_spot_price
   end
+  
 end

@@ -1,32 +1,16 @@
 require 'dgp_module'
 
-desc "This task adds recent BTC txs to the list"
-task :scrape_the_chain => :environment do
-  puts "Updating tx feed..."
-  Client.all.each do |client|
-    client.wallets.each do |wallet|
-      DGP::ChainParser.new(wallet).update_database
-      puts "Finished parsing transactions for WalletID: #{wallet.id}"
-    end
-  end
-  puts "done."
-end
-
-
 desc "Deposit daily USD to primary wallets of active clients"
 task :daily_deposit => :environment do
+  require 'depositor'
   puts "Beginning deposits"
   # Rails.logger.info "Beginning deposits.."
   Client.active.each do |client|
-    # Rails.logger.info "Depositing to Client   { id: #{client.id}, name: #{client.name}, wallet: #{client.primary_wallet} }"
-    puts "Depositing to    { ID: #{client.id}, NAME: #{client.name} }"
-    depositor = DGP::Depositor::Client.new(client)
+    depositor = Depositor::Client.new(client)
     depositor.deposit
-    # Rails.logger.info "Deposit Success Client { id: #{client.id}, name: #{client.name}, wallet: #{client.primary_wallet} }"
-    puts "Deposit Success! { id: #{client.id}, name: #{client.name}, wallet: #{client.primary_wallet.address} }" if depositor.success
+    sleep 0.5
   end
 end
-
 
 desc "Updates database with latest client wallets and transactions"
 task :update_client_wallets => :environment do
@@ -64,6 +48,11 @@ task :update_client_wallets => :environment do
       end #end of loop
     end #each wallet type iterated
   end #each client iterated
+end
+
+desc "Update BTC Spot Price"
+task :update_usd_btc_spot_price => :environment do
+  DGP::MarketData.update_usd_btc_spot_price
 end
 
 #Dear GitHub Viewers, this is a super fast prototype. Sorry for the slop. - cditch

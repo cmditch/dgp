@@ -22,7 +22,7 @@
         <td title="$<%= to_usd(transaction.fees) %> at current spot price">$<%= price_round(transaction.fees_usd_price)%></td>
         <td><%= format_time(transaction.received) %></td>
         <td><%= transaction.validated ? fa_icon("check-square", style: "color:green;padding-right:2px;", text: "Yes") : fa_icon("window-close", style: "color:red;padding-right:2px;", text: "No")  %></td>
-        <td><%= transaction.client_was %></td>
+        <td><%= transaction.client_was.capitalize %></td>
         <td>
           <%= link_to "Details", transaction_path(transaction), :class => 'btn btn-default btn-xs' %>
         </td>

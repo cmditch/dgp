@@ -22,9 +22,9 @@
         <td><%= client.name %></td>
         <td><%= client.gatekeeper_id %></td>
         <td><%= client.daily_usd_amount %></td>
-        <td><%= client.active %></td>
+        <td><%= client.active ? fa_icon("check-square", style: "color:green;padding-right:2px;", text: "Yes") : fa_icon("window-close", style: "color:red;padding-right:2px;", text: "No") %></td>
         <td><%= client.total_donations %></td>
-        <td><%=l client.created_at %></td>
+        <td><%= client.created_at.to_date %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_client_path(client), :class => 'btn btn-default btn-xs' %>
