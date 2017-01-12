@@ -22,11 +22,19 @@ class Transaction < ActiveRecord::Base
   end
 
   def total_usd_price
-    (usd_spot_price * (total.to_f / 10**8)).round(2)
+    (usd_spot_price * (total.to_f / 10**8))
   end
 
   def fees_usd_price
-    (usd_spot_price * (fees.to_f / 10**8)).round(2)
+    (usd_spot_price * (fees.to_f / 10**8))
+  end
+
+  def sent_usd_price
+    (usd_spot_price * (outputs.first[:value].to_f / 10**8))
+  end
+
+  def sent
+    outputs.first[:value]
   end
 
   def senders

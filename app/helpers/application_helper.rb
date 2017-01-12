@@ -8,4 +8,8 @@ module ApplicationHelper
     ( (btc.to_f / (10 ** 8)) * DGP::MarketData.usd_btc_spot_price ).round(2)
   end
   
+  def price_round(price)
+    sprintf('%.2f', price)
+  end  
+
 end

@@ -6,10 +6,10 @@
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:txid) %></th>
-      <th><%= model_class.human_attribute_name(:total) %></th>
+      <th><%= model_class.human_attribute_name(:sent) %></th>
       <th><%= model_class.human_attribute_name(:fees) %></th>
       <th><%= model_class.human_attribute_name(:received) %></th>
-      <th><%= model_class.human_attribute_name(:validated) %></th>
+      <th><%= model_class.human_attribute_name(:Valid) %></th>
       <th><%= model_class.human_attribute_name(:client_was) %></th>
       <th></th>
     </tr>
@@ -18,10 +18,10 @@
     <% @transactions.each do |transaction| %>
       <tr>
         <td><%= link_to short(transaction.txid), tx_link(transaction), target: "_blank", title: transaction.txid  %></td>
-        <td>$<%= transaction.total_usd_price %></td>
-        <td>$<%= transaction.fees_usd_price %></td>
+        <td title="$<%= to_usd(transaction.sent) %> at current spot price">$<%= price_round(transaction.sent_usd_price)%></td>
+        <td title="$<%= to_usd(transaction.fees) %> at current spot price">$<%= price_round(transaction.fees_usd_price)%></td>
         <td><%= format_time(transaction.received) %></td>
-        <td><%= transaction.validated %></td>
+        <td><%= transaction.validated ? fa_icon("check-square", style: "color:green;padding-right:2px;", text: "Yes") : fa_icon("window-close", style: "color:red;padding-right:2px;", text: "No")  %></td>
         <td><%= transaction.client_was %></td>
         <td>
           <%= link_to "Details", transaction_path(transaction), :class => 'btn btn-default btn-xs' %>
