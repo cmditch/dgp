@@ -25,7 +25,6 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'seed_dump'
 gem 'pry-rails'
 
-# gem 'dotenv-rails', :groups => [:development, :test], :require => 'dotenv/rails-now'
 gem 'devise'
 gem 'twitter-bootstrap-rails'
 gem "attr_encrypted", "~> 3.0.0"
