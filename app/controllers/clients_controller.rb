@@ -15,6 +15,7 @@ class ClientsController < ApplicationController
   # GET /clients/new
   def new
     @client = Client.new
+    @seed   = Seed.unused
   end
 
   # GET /clients/1/edit
