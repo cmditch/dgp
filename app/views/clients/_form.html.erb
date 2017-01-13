@@ -14,20 +14,13 @@
       </div>
     </div>
   <% end %>
-
+<% unless !@seed %>
   <div class="form-group">
     <%= f.label :name, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
       <%= f.text_field :name, :class => 'form-control' %>
     </div>
     <%=f.error_span(:name) %>
-  </div>
-  <div class="form-group">
-    <%= f.label :gatekeeper_id, :class => 'control-label col-lg-2' %>
-    <div class="col-lg-10">
-      <%= f.text_field :gatekeeper_id, :class => 'form-control' %>
-    </div>
-    <%=f.error_span(:gatekeeper_id) %>
   </div>
   <div class="form-group">
     <%= f.label :daily_usd_amount, :class => 'control-label col-lg-2' %>
@@ -37,40 +30,27 @@
     <%=f.error_span(:daily_usd_amount) %>
   </div>
   <div class="form-group">
-    <%= f.label :active, :class => 'control-label col-lg-2' %>
+    <%= f.label :notes, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
-      <%= f.text_field :active, :class => 'form-control' %>
+      <%= f.text_field :notes, :class => 'form-control' %>
     </div>
-    <%=f.error_span(:active) %>
+    <%=f.error_span(:notes) %>
   </div>
-  <div class="form-group">
-    <%= f.label :encrypted_mnemonic, :class => 'control-label col-lg-2' %>
-    <div class="col-lg-10">
-      <%= f.text_field :encrypted_mnemonic, :class => 'form-control' %>
-    </div>
-    <%=f.error_span(:encrypted_mnemonic) %>
-  </div>
-  <div class="form-group">
-    <%= f.label :encrypted_mnemonic_iv, :class => 'control-label col-lg-2' %>
-    <div class="col-lg-10">
-      <%= f.text_field :encrypted_mnemonic_iv, :class => 'form-control' %>
-    </div>
-    <%=f.error_span(:encrypted_mnemonic_iv) %>
-  </div>
-  <div class="form-group">
-    <%= f.label :total_donations, :class => 'control-label col-lg-2' %>
-    <div class="col-lg-10">
-      <%= f.text_field :total_donations, :class => 'form-control' %>
-    </div>
-    <%=f.error_span(:total_donations) %>
-  </div>
-
   <div class="form-group">
     <div class="col-lg-offset-2 col-lg-10">
       <%= f.submit nil, :class => 'btn btn-primary' %>
       <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
                 clients_path, :class => 'btn btn-default' %>
     </div>
+  </div>
+<% end %>
+
+  <div class="form-group" style="padding-top: 30px">
+    <%= f.label :seed_words, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <%= @seed ? @seed.seed : "NO SEEDS LEFT IN LIST, CONTACT COURY AT DGP" %>
+    </div>
+    <%=f.error_span(:daily_usd_amount) %>
   </div>
 
 <% end %>

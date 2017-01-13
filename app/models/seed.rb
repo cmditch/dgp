@@ -1,8 +1,10 @@
 class Seed < ActiveRecord::Base
+  validates_presence_of :seed
   attr_encrypted :seed, key: Rails.application.secrets.encryptor
+  belongs_to :client
 
   def self.unused
-    seed = self.find_by(used: false)
-    seed.nil? ? "NO SEEDS LEFT IN LIST, CONTACT DGP" : seed.seed
+    self.find_by(used: false)
   end
+  
 end

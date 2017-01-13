@@ -4,6 +4,7 @@ class Client < ActiveRecord::Base
   
   has_many :wallets, as: :transactor
   has_many :transactions, through: :wallets
+  has_one :seed
   belongs_to :gatekeeper
   attr_encrypted :mnemonic, key: Rails.application.secrets.encryptor
 
@@ -46,12 +47,12 @@ class Client < ActiveRecord::Base
 
   private
 
-  def seed
+  def seed_text
     BipMnemonic.to_seed(mnemonic: mnemonic)
   end
 
   def hd_master
-    MoneyTree::Master.new(seed_hex: seed)
+    MoneyTree::Master.new(seed_hex: seed_text)
   end
 
   def btc_balance
