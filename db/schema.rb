@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170112231307) do
+ActiveRecord::Schema.define(version: 20170113003056) do
 
   create_table "bitpay_webhooks", force: :cascade do |t|
     t.text     "data"
@@ -61,6 +61,14 @@ ActiveRecord::Schema.define(version: 20170112231307) do
     t.float    "btc_usd_spot_price"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+  end
+
+  create_table "seeds", force: :cascade do |t|
+    t.string   "encrypted_seed"
+    t.string   "encrypted_seed_iv"
+    t.boolean  "used"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
   end
 
   create_table "transactions", force: :cascade do |t|

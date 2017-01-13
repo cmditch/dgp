@@ -9,7 +9,11 @@ Rails.application.routes.draw do
 
   resources :gatekeepers
 
-  resources :clients
+  resources :clients do
+    member do
+      post 'toggle'
+    end
+  end
 
   resources :bitpay_webhooks
 

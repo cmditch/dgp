@@ -5,9 +5,7 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:name) %></th>
-      <th><%= model_class.human_attribute_name(:gatekeeper_id) %></th>
       <th><%= model_class.human_attribute_name(:daily_usd_amount) %></th>
       <th><%= model_class.human_attribute_name(:active) %></th>
       <th><%= model_class.human_attribute_name(:total_donations) %></th>
@@ -18,21 +16,17 @@
   <tbody>
     <% @clients.each do |client| %>
       <tr>
-        <td><%= link_to client.id, client_path(client) %></td>
         <td><%= client.name %></td>
-        <td><%= client.gatekeeper_id %></td>
         <td><%= client.daily_usd_amount %></td>
         <td><%= client.active ? fa_icon("check-square", style: "color:green;padding-right:2px;", text: "Yes") : fa_icon("window-close", style: "color:red;padding-right:2px;", text: "No") %></td>
         <td><%= price_round(client.total_donations) %></td>
         <td><%= client.created_at.to_date %></td>
         <td>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_client_path(client), :class => 'btn btn-default btn-xs' %>
-          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      client_path(client),
-                      :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                      :class => 'btn btn-xs btn-danger' %>
+          <%= link_to 'Activate/Deactivate',
+                      "clients/#{client.id}/toggle",
+                      :method => :toggle_activation,
+                      :data => { :confirm => 'Are you sure you want to toggle activation?' },
+                      :class => 'btn btn-default btn-xs' %>
         </td>
       </tr>
     <% end %>

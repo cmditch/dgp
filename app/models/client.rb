@@ -40,6 +40,10 @@ class Client < ActiveRecord::Base
     self.wallets.map(&:address)
   end
 
+  def toggle_activation
+    active ? update(active: false) : update(active: true)
+  end
+
   private
 
   def seed

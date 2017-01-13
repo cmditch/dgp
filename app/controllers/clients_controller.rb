@@ -1,5 +1,5 @@
 class ClientsController < ApplicationController
-  before_action :set_client, only: [:show, :edit, :update, :destroy]
+  before_action :set_client, only: [:show, :edit, :update, :destroy, :toggle]
 
   # GET /clients
   # GET /clients.json
@@ -51,15 +51,12 @@ class ClientsController < ApplicationController
     end
   end
 
-  # DELETE /clients/1
-  # DELETE /clients/1.json
-  def destroy
-    @client.destroy
-    respond_to do |format|
-      format.html { redirect_to clients_url, notice: 'Client was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+
+  def toggle
+    @client.toggle_activation
+    redirect_to '/clients'
   end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
