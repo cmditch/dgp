@@ -27,10 +27,11 @@ module DGP
     class << self
 
       def update_usd_btc_spot_price
+        spot_price = api.spot_price({currency_pair: 'BTC-USD'})["amount"].to_f
         if Global.first
-          Global.first.update(btc_usd_spot_price: api.spot_price({currency_pair: 'BTC-USD'})["amount"].to_f)
+          Global.first.update(btc_usd_spot_price: spot_price)
         else
-          0
+          Global.create(btc_usd_spot_price: spot_price)
         end
       end
 
