@@ -5,66 +5,24 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:data) %></th>
-      <th><%= model_class.human_attribute_name(:url) %></th>
-      <th><%= model_class.human_attribute_name(:bitpay_id) %></th>
-      <th><%= model_class.human_attribute_name(:status) %></th>
-      <th><%= model_class.human_attribute_name(:btcPrice) %></th>
-      <th><%= model_class.human_attribute_name(:price) %></th>
-      <th><%= model_class.human_attribute_name(:currency) %></th>
-      <th><%= model_class.human_attribute_name(:invoiceTime) %></th>
-      <th><%= model_class.human_attribute_name(:expirationTime) %></th>
-      <th><%= model_class.human_attribute_name(:currentTime) %></th>
+      <th><%= model_class.human_attribute_name(:Invoice) %></th>
       <th><%= model_class.human_attribute_name(:btcPaid) %></th>
       <th><%= model_class.human_attribute_name(:btcDue) %></th>
       <th><%= model_class.human_attribute_name(:rate) %></th>
-      <th><%= model_class.human_attribute_name(:exceptionStatus) %></th>
-      <th><%= model_class.human_attribute_name(:buyerFields) %></th>
-      <th><%= model_class.human_attribute_name(:transactions) %></th>
-      <th><%= model_class.human_attribute_name(:orderId) %></th>
       <th><%= model_class.human_attribute_name(:txid) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
   <tbody>
     <% @bitpay_webhooks.each do |bitpay_webhook| %>
       <tr>
-        <td><%= link_to bitpay_webhook.id, bitpay_webhook_path(bitpay_webhook) %></td>
-        <td><%= bitpay_webhook.data %></td>
-        <td><%= bitpay_webhook.url %></td>
-        <td><%= bitpay_webhook.bitpay_id %></td>
-        <td><%= bitpay_webhook.status %></td>
-        <td><%= bitpay_webhook.btcPrice %></td>
-        <td><%= bitpay_webhook.price %></td>
-        <td><%= bitpay_webhook.currency %></td>
-        <td><%= bitpay_webhook.invoiceTime %></td>
-        <td><%= bitpay_webhook.expirationTime %></td>
-        <td><%= bitpay_webhook.currentTime %></td>
+        <td><%= link_to bitpay_webhook.orderId, bitpay_webhook.url, target: "_blank", class: "black-link" %></td>
         <td><%= bitpay_webhook.btcPaid %></td>
         <td><%= bitpay_webhook.btcDue %></td>
         <td><%= bitpay_webhook.rate %></td>
-        <td><%= bitpay_webhook.exceptionStatus %></td>
-        <td><%= bitpay_webhook.buyerFields %></td>
-        <td><%= bitpay_webhook.transactions %></td>
-        <td><%= bitpay_webhook.orderId %></td>
-        <td><%= bitpay_webhook.txid %></td>
+        <td><%= link_to short(bitpay_webhook.txid), tx_link(bitpay_webhook.txid), target: "_blank", class: "orange-link"  %></td>
         <td><%=l bitpay_webhook.created_at %></td>
-        <td>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_bitpay_webhook_path(bitpay_webhook), :class => 'btn btn-default btn-xs' %>
-          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      bitpay_webhook_path(bitpay_webhook),
-                      :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                      :class => 'btn btn-xs btn-danger' %>
-        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_bitpay_webhook_path,
-            :class => 'btn btn-primary' %>

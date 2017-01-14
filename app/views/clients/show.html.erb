@@ -6,26 +6,22 @@
 <dl class="dl-horizontal">
   <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
   <dd><%= @client.name %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:gatekeeper_id) %>:</strong></dt>
-  <dd><%= @client.gatekeeper_id %></dd>
   <dt><strong><%= model_class.human_attribute_name(:daily_usd_amount) %>:</strong></dt>
-  <dd><%= @client.daily_usd_amount %></dd>
+  <dd>$<%= price_round(@client.daily_usd_amount) %></dd>
   <dt><strong><%= model_class.human_attribute_name(:active) %>:</strong></dt>
-  <dd><%= @client.active %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:encrypted_mnemonic) %>:</strong></dt>
-  <dd><%= @client.encrypted_mnemonic %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:encrypted_mnemonic_iv) %>:</strong></dt>
-  <dd><%= @client.encrypted_mnemonic_iv %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:total_donations) %>:</strong></dt>
-  <dd><%= @client.total_donations %></dd>
+  <dd><%= @client.active ? fa_icon("check-square", style: "color:green;padding-right:2px;", text: "Yes") : fa_icon("window-close", style: "color:red;padding-right:2px;", text: "No")  %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:balance) %>:</strong></dt>
+  <dd>$<%= price_round(@client.balance) %></dd>
+  <br>
+  <dt>Wallet Seed:</strong></dt>
+  <dd style="font-size: large"><%= @client.mnemonic %></dd>
 </dl>
 
+
+
+<%= link_to 'Test Deposit', test_deposit_client_path, method: :put, :class => 'btn btn-warning'  %>
+<br><br>
+<%= link_to 'Activate/Deactivate', toggle_client_path, :method => :toggle_activation, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-danger' %>
+<br><br>
 <%= link_to t('.back', :default => t("helpers.links.back")),
               clients_path, :class => 'btn btn-default'  %>
-<%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_client_path(@client), :class => 'btn btn-default' %>
-<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-              client_path(@client),
-              :method => 'delete',
-              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-              :class => 'btn btn-danger' %>

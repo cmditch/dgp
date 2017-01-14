@@ -10,6 +10,14 @@ module ApplicationHelper
   
   def price_round(price)
     sprintf('%.2f', price)
-  end  
+  end
+
+  def short(text)
+    "#{text[0..3]}...#{text[-4..-1]}"
+  end
+
+  def tx_link(txid)
+    "https://blockchain.info/tx/#{txid}"
+  end
 
 end

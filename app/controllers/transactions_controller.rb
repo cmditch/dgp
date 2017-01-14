@@ -5,7 +5,7 @@ class TransactionsController < ApplicationController
   # GET /transactions.json
   def index
     @spot_price   = DGP::MarketData.usd_btc_spot_price
-    @transactions = Transaction.all.sort_by { |tx| tx.received }.reverse
+    @transactions = Transaction.all.includes(:transactor).sort_by { |tx| tx.received }.reverse
   end
 
   # GET /transactions/1

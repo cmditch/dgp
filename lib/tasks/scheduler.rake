@@ -34,7 +34,9 @@ task :update_client_wallets => :environment do
         p "No new TX's for #{client.name}'s #{type}" if endpoint_data[:final_n_tx] == 0 && n == 0
         break if endpoint_data[:final_n_tx] == 0
         if wallet.nil?
-          w = Wallet.create(endpoint_data)
+          w = Wallet.new
+          w.attributes = endpoint_data.reject { |k,v| !w.attributes.keys.member?(k.to_s) }
+          w.save
           wallet_id = w.id
           p "[DGP-NOTIFY] Created #{type} #{w.address} for client #{w.transactor.id} (#{w.transactor.name})"
         else

@@ -65,11 +65,11 @@ class Client < ActiveRecord::Base
   end
 
   def btc_balance
-    wallets.map(&:final_balance).reduce(:+).to_f / (10 ** 8)
+    wallets.map(&:final_balance).sum.to_f / (10 ** 8)
   end
 
   def usd_balance
-    (btc_balance * BitpayWebhook.last.rate).round(2)
+    (btc_balance * DGP::MarketData.usd_btc_spot_price).round(2)
   end
 
 end

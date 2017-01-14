@@ -46,16 +46,17 @@
           <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand" href="/">DGP</a>
-        <a class="navbar-brand" href="https://www.coinbase.com/charts" style="padding-left: 50px;font-size: small;color: green;">BTC: $<%= DGP::MarketData.usd_btc_spot_price %></a>
         <% if user_signed_in? %>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
           <ul class="nav navbar-nav" style="float: right;">
+          <li style="font-size: small;color: green;"><%= link_to "$" + price_round(DGP::MarketData.usd_btc_spot_price), "https://www.coinbase.com/charts", style: "font-size: small;color: green;" %></li>
             <li><%= link_to "Clients", clients_path %></li>
-            <li><%= link_to "Vendors", vendors_path  %></li>
-            <li><%= link_to "Wallets", wallets_path  %></li>
+            <li><% link_to "Vendors", vendors_path  %></li>
+            <li><% link_to "Wallets", wallets_path  %></li>
             <li><%= link_to "Transactions", transactions_path  %></li>
             <li><%= link_to "Bitpay Txs", bitpay_webhooks_path  %></li>
             <li><%= link_to 'Logout', destroy_user_session_path, method: :delete %></li>
+
           </ul>
         </div>
         <% end %>

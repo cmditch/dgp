@@ -6,9 +6,10 @@
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:name) %></th>
-      <th><%= model_class.human_attribute_name(:daily_usd_amount) %></th>
+      <th><%= model_class.human_attribute_name(:balance) %></th>
+      <th>Total Donations</th>
+      <th>Daily Deposit</th>
       <th><%= model_class.human_attribute_name(:active) %></th>
-      <th><%= model_class.human_attribute_name(:total_donations) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
@@ -16,17 +17,19 @@
   <tbody>
     <% @clients.each do |client| %>
       <tr>
-        <td><%= client.name %></td>
-        <td><%= client.daily_usd_amount %></td>
+        <td><%= link_to client.name, client, class: "black-link" %></td>
+        <td>$<%= price_round(client.balance) %></td>
+        <td>$<%= price_round(client.total_donations) %></td>
+        <td>$<%= price_round(client.daily_usd_amount) %></td>
         <td><%= client.active ? fa_icon("check-square", style: "color:green;padding-right:2px;", text: "Yes") : fa_icon("window-close", style: "color:red;padding-right:2px;", text: "No") %></td>
-        <td><%= price_round(client.total_donations) %></td>
         <td><%= client.created_at.to_date %></td>
         <td>
           <%= link_to 'Activate/Deactivate',
-                      "clients/#{client.id}/toggle",
+                      toggle_client_path(client),
                       :method => :toggle_activation,
                       :data => { :confirm => 'Are you sure?' },
                       :class => 'btn btn-default btn-xs' %>
+          <% link_to 'Test Deposit', test_deposit_client_path(client), method: :put, :class => 'btn btn-default btn-xs'  %>
         </td>
       </tr>
     <% end %>
@@ -35,4 +38,4 @@
 
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_client_path,
-            :class => 'btn btn-primary' %>
+            :class => 'btn btn-primary black-link' %>

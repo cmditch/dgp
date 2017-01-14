@@ -14,3 +14,8 @@
  *= require_self
  *= require font-awesome
  */
+
+a:link.orange-link, a:visited.orange-link { color: orange; }
+a:hover.orange-link  { background-color: lavender; }
+a:link.black-link, a:visited.black-link { color: black; }
+a:hover.black-link  { background-color: lavender; }

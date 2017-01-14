@@ -55,7 +55,7 @@ class ClientsController < ApplicationController
 
   def toggle
     @client.toggle_activation
-    redirect_to clients_path
+    redirect_to :back
   end
 
   def verify

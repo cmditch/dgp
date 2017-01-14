@@ -7,11 +7,12 @@
   <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
   <dd><%= @client.name %></dd>
   <dt><strong><%= model_class.human_attribute_name(:daily_usd_amount) %>:</strong></dt>
-  <dd><%= @client.daily_usd_amount %></dd>
+  <dd>$<%= price_round(@client.daily_usd_amount) %></dd>
   <dt><strong><%= model_class.human_attribute_name(:active) %>:</strong></dt>
-  <dd><%= @client.active %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:encrypted_mnemonic) %>:</strong></dt>
-  <dd><%= @client.mnemonic %></dd>
+  <dd><%= @client.active ? fa_icon("check-square", style: "color:green;padding-right:2px;", text: "Yes") : fa_icon("window-close", style: "color:red;padding-right:2px;", text: "No")  %></dd>
+  <br>
+  <dt>Wallet Seed:</strong></dt>
+  <dd style="font-size: large"><%= @client.mnemonic %></dd>
 </dl>
 
 
