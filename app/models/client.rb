@@ -69,7 +69,11 @@ class Client < ActiveRecord::Base
   end
 
   def usd_balance
-    (btc_balance * DGP::MarketData.usd_btc_spot_price).round(2)
+    if Global.first
+     (btc_balance * Global.first.btc_usd_spot_price).round(2)
+    else
+      0
+    end
   end
 
 end
