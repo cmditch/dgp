@@ -1,6 +1,7 @@
 class Client < ActiveRecord::Base
   require 'money-tree'
   require 'bip_mnemonic'
+  require 'depositor'
   
   has_many :wallets, as: :transactor
   has_many :transactions, through: :wallets
@@ -41,8 +42,16 @@ class Client < ActiveRecord::Base
     self.wallets.map(&:address)
   end
 
+  def activate
+    update(active: true)
+  end
+
   def toggle_activation
     active ? update(active: false) : update(active: true)
+  end
+
+  def test_deposit
+    Depositor::Client.new(self).test_deposit
   end
 
   private

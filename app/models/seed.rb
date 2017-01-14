@@ -4,7 +4,14 @@ class Seed < ActiveRecord::Base
   belongs_to :client
 
   def self.unused
-    self.find_by(used: false)
+    unused = self.find_by(used: false)
+    if unused
+      unused
+    else
+      3.times { Seed.create(seed: BipMnemonic.to_mnemonic(bits: 128)) }
+      p "[DGP-NOTIFY] Three new seeds were just generated. Make sure you write these down."
+      self.find_by(used: false)
+    end  
   end
   
 end

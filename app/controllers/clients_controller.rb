@@ -1,5 +1,5 @@
 class ClientsController < ApplicationController
-  before_action :set_client, only: [:show, :edit, :update, :destroy, :toggle]
+  before_action :set_client, only: [:show, :edit, :update, :destroy, :toggle, :verify, :activate, :test_deposit]
 
   # GET /clients
   # GET /clients.json
@@ -15,7 +15,6 @@ class ClientsController < ApplicationController
   # GET /clients/new
   def new
     @client = Client.new
-    @seed   = Seed.unused
   end
 
   # GET /clients/1/edit
@@ -26,10 +25,12 @@ class ClientsController < ApplicationController
   # POST /clients.json
   def create
     @client = Client.new(client_params)
-    
+    seed = Seed.unused
+    @client.attributes = {mnemonic: seed.seed}
     respond_to do |format|
       if @client.save
-        format.html { redirect_to @client, notice: 'Client was successfully created.' }
+        seed.update(used: true, client_id: @client.id)
+        format.html { redirect_to verify_client_path(@client), notice: 'Client was successfully created.' }
         format.json { render :show, status: :created, location: @client }
       else
         format.html { render :new }
@@ -54,7 +55,23 @@ class ClientsController < ApplicationController
 
   def toggle
     @client.toggle_activation
-    redirect_to '/clients'
+    redirect_to clients_path
+  end
+
+  def verify
+    @seed = @client.mnemonic
+  end
+
+  def activate
+    @client.activate
+    redirect_to clients_path, notice: "#{@client.name.capitalize} is now active!"
+  end
+
+  def test_deposit
+    @client.test_deposit
+    redirect_to( :back, 
+    notice: %Q[Test deposit sent to #{@client.name}, #{view_context.link_to("check wallet here", 'https://blockchain.info/address/' + @client.primary_wallet, target: "_blank", style: "text-decoration: underline; color: orange;")} and on their phone.],
+    flash: { html_safe: true })
   end
 
 
@@ -66,6 +83,6 @@ class ClientsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def client_params
-      params.require(:client).permit(:name, :gatekeeper_id, :notes)
+      params.require(:client).permit(:name, :gatekeeper_id, :notes, :mnemonic)
     end
 end

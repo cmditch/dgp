@@ -25,9 +25,22 @@
             @api = nil
             @client.total_donations += @amount
             @client.save
+          else
+            puts "[DGP-ERROR] Deposit to #{client.name} (#{client.id}) FAILED! "
           end
+        end
+      end
+
+      def test_deposit
+        if @account.send(to: @address, amount: 0.10, currency: "USD")
+          self.success = true
+          @client.test_deposit_made = true
+          @client.total_donations += 0.10
+          puts "[DGP-NOTIFY] Test deposit sent to #{@client.name} (#{@client.id})"
+          @api = nil
+          @client.save
         else
-          puts "[DGP-ERROR] Deposit to #{client.name} (#{client.id}) FAILED! "
+          puts "[DGP-ERROR] Test deposit to #{client.name} (#{client.id}) FAILED! "
         end
       end
 

@@ -12,6 +12,9 @@ Rails.application.routes.draw do
   resources :clients do
     member do
       post 'toggle'
+      get  'verify'
+      post 'verify' => 'clients#activate', as: :activate
+      put  'verify' => 'clients#test_deposit', as: :test_deposit
     end
   end
 

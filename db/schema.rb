@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170113003060) do
+ActiveRecord::Schema.define(version: 20170114004620) do
 
   create_table "bitpay_webhooks", force: :cascade do |t|
     t.text     "data"
@@ -39,14 +39,15 @@ ActiveRecord::Schema.define(version: 20170113003060) do
   create_table "clients", force: :cascade do |t|
     t.string   "name"
     t.integer  "gatekeeper_id"
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
     t.float    "daily_usd_amount",      default: 5.0
-    t.boolean  "active",                default: true
+    t.boolean  "active",                default: false
     t.string   "encrypted_mnemonic"
     t.string   "encrypted_mnemonic_iv"
     t.float    "total_donations",       default: 0.0
     t.text     "notes"
+    t.boolean  "test_deposit_made",     default: false
   end
 
   add_index "clients", ["gatekeeper_id"], name: "index_clients_on_gatekeeper_id"
@@ -66,10 +67,10 @@ ActiveRecord::Schema.define(version: 20170113003060) do
   create_table "seeds", force: :cascade do |t|
     t.string   "encrypted_seed"
     t.string   "encrypted_seed_iv"
-    t.boolean  "used"
+    t.boolean  "used",              default: false
     t.integer  "client_id"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
   end
 
   create_table "transactions", force: :cascade do |t|
