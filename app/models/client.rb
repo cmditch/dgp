@@ -13,7 +13,7 @@ class Client < ActiveRecord::Base
     where(active: true)
   end
 
-  def balance(currency = :usd)
+  def balance(currency = :btc)
     case currency
     when :usd
       usd_balance
@@ -54,6 +54,10 @@ class Client < ActiveRecord::Base
     Depositor::Client.new(self).test_deposit
   end
 
+  def usd_balance
+    (btc_balance * Global.first.btc_usd_spot_price).round(2)
+  end
+
   private
 
   def seed_text
@@ -66,14 +70,6 @@ class Client < ActiveRecord::Base
 
   def btc_balance
     wallets.map(&:final_balance).sum.to_f / (10 ** 8)
-  end
-
-  def usd_balance
-    if Global.first
-     (btc_balance * Global.first.btc_usd_spot_price).round(2)
-    else
-      0
-    end
   end
 
 end

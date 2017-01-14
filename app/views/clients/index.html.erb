@@ -18,7 +18,7 @@
     <% @clients.each do |client| %>
       <tr>
         <td><%= link_to client.name, client, class: "black-link" %></td>
-        <td>$<%= price_round(client.balance) %></td>
+        <td title="<%= client.balance %> BTC">$<%= price_round(client.balance * @spot_price) %></td>
         <td>$<%= price_round(client.total_donations) %></td>
         <td>$<%= price_round(client.daily_usd_amount) %></td>
         <td><%= client.active ? fa_icon("check-square", style: "color:green;padding-right:2px;", text: "Yes") : fa_icon("window-close", style: "color:red;padding-right:2px;", text: "No") %></td>

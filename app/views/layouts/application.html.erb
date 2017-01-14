@@ -49,7 +49,7 @@
         <% if user_signed_in? %>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
           <ul class="nav navbar-nav" style="float: right;">
-          <li style="font-size: small;color: green;"><%= link_to "$" + price_round(DGP::MarketData.usd_btc_spot_price), "https://www.coinbase.com/charts", style: "font-size: small;color: green;" %></li>
+          <li style="font-size: small;color: green;"><%= link_to "BTC/USD $" + price_round(DGP::MarketData.usd_btc_spot_price), "https://www.coinbase.com/charts", style: "font-size: small;color: green;" %></li>
             <li><%= link_to "Clients", clients_path %></li>
             <li><% link_to "Vendors", vendors_path  %></li>
             <li><% link_to "Wallets", wallets_path  %></li>

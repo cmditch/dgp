@@ -20,4 +20,8 @@ module ApplicationHelper
     "https://blockchain.info/tx/#{txid}"
   end
 
+  def address_link(address)
+    "https://blockchain.info/address/#{address}"
+  end
+
 end

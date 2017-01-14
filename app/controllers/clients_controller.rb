@@ -5,11 +5,13 @@ class ClientsController < ApplicationController
   # GET /clients.json
   def index
     @clients = Client.all
+    @spot_price = Global.first.btc_usd_spot_price
   end
 
   # GET /clients/1
   # GET /clients/1.json
   def show
+    @spot_price = Global.first.btc_usd_spot_price
   end
 
   # GET /clients/new
@@ -60,6 +62,7 @@ class ClientsController < ApplicationController
 
   def verify
     @seed = @client.mnemonic
+    @spot_price = Global.first.btc_usd_spot_price
   end
 
   def activate

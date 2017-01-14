@@ -18,8 +18,8 @@
     <% @transactions.each do |transaction| %>
       <tr>
         <td><%= link_to short(transaction.txid), tx_link(transaction.txid), class: "orange-link", target: "_blank", title: transaction.txid  %></td>
-        <td title="$<%= to_usd(transaction.sent) %> at current spot price">$<%= price_round(transaction.sent_usd_price)%></td>
-        <td title="$<%= to_usd(transaction.fees) %> at current spot price">$<%= price_round(transaction.fees_usd_price)%></td>
+        <td title="$<%= price_round (transaction.sent.to_f / (10 ** 8)) * @spot_price %> at current spot price">$<%= price_round(transaction.sent_usd_price)%></td>
+        <td title="$<%= price_round (transaction.fees.to_f / (10 ** 8)) * @spot_price %> at current spot price">$<%= price_round(transaction.fees_usd_price)%></td>
         <td><%= link_to(transaction.transactor.name, transaction.transactor, class: "black-link") %></td>
         <td><%= transaction.client_was.capitalize %></td>
         <td><%= transaction.validated ? fa_icon("check-square", style: "color:green;padding-right:2px;", text: "Yes") : fa_icon("window-close", style: "color:red;padding-right:2px;", text: "No")  %></td>

@@ -10,18 +10,21 @@
   <dd>$<%= price_round(@client.daily_usd_amount) %></dd>
   <dt><strong><%= model_class.human_attribute_name(:active) %>:</strong></dt>
   <dd><%= @client.active ? fa_icon("check-square", style: "color:green;padding-right:2px;", text: "Yes") : fa_icon("window-close", style: "color:red;padding-right:2px;", text: "No")  %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:balance) %>:</strong></dt>
-  <dd>$<%= price_round(@client.balance) %></dd>
+  <dt><strong>Last Known Balance:</strong></dt>
+  <dd>$<%= price_round(@client.balance * @spot_price) %></dd>
+  <dt><strong>Deposit Address:</strong></dt>
+  <dd><%= link_to @client.primary_wallet, address_link(@client.primary_wallet) %></dd>
   <br>
-  <dt>Wallet Seed:</strong></dt>
-  <dd style="font-size: large"><%= @client.mnemonic %></dd>
+  <a style="border: 2px solid grey" class="btn btn-success btn-xs" onclick="reveal('seed')">Reveal Wallet Seed:</a>
+  <br>
+  <div style="padding-top: 3px"><p style="font-size: medium;" class="myHiddenText" id="seed"><%= @client.mnemonic %></p></div>
 </dl>
 
 
-
-<%= link_to 'Test Deposit', test_deposit_client_path, method: :put, :class => 'btn btn-warning'  %>
-<br><br>
-<%= link_to 'Activate/Deactivate', toggle_client_path, :method => :toggle_activation, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-danger' %>
+<br>
+<%= link_to 'Test Deposit', test_deposit_client_path, method: :put, :class => 'btn btn-warning btn-xs', style: "color: white"  %>
+<br>
+<%= link_to 'Activate/Deactivate', toggle_client_path, :method => :toggle_activation, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-xs btn-danger', style: "color: white; margin-top: 15px" %>
 <br><br>
 <%= link_to t('.back', :default => t("helpers.links.back")),
-              clients_path, :class => 'btn btn-default'  %>
+              clients_path, :class => 'btn btn-default btn-xs'  %>
