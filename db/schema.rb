@@ -75,8 +75,14 @@ ActiveRecord::Schema.define(version: 20170114004620) do
 
   create_table "transactions", force: :cascade do |t|
     t.string   "txid"
+    t.string   "sender"
+    t.string   "recipient"
+    t.float    "amount"
+    t.datetime "time"
+    t.integer  "block_id"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.float    "fee"
     t.string   "currency"
     t.string   "block_hash"
     t.integer  "block_height"

@@ -25,16 +25,27 @@ module DGP
     SECRET  = Rails.application.secrets.coinbase_api_secret
 
     class << self
-      attr_accessor :usd_btc_spot_price
 
       def update_usd_btc_spot_price
-        self.usd_btc_spot_price = api.spot_price({currency_pair: 'BTC-USD'})["amount"].to_f
+        if Global.first
+          Global.first.update(btc_usd_spot_price: api.spot_price({currency_pair: 'BTC-USD'})["amount"].to_f)
+        else
+          0
+        end
       end
 
       def historical_spot_price(date=Date.today.to_s)
         date = date.to_s
         price = api.spot_price({currency_pair: 'BTC-USD', date: date})
         price["amount"].to_f
+      end
+
+      def usd_btc_spot_price
+        if Global.first
+          Global.first.btc_usd_spot_price
+        else
+          0
+        end
       end
 
       private

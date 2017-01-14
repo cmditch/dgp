@@ -53,8 +53,10 @@ class Transaction < ActiveRecord::Base
       params = {client_was: "sender"} 
       self.check_against_bitpay_webhooks ? params[:validated] = true : (params[:validated] = false; p "[DGP-NOTIFY] Transaction #{self.txid} is flagged as invalid!")
       self.update(params)
-      self.transactor.update(active: false)
-      p "[DGP-NOTIFY] #{self.transactor.name.capitalize}'s deposits have been deactivated."
+      unless !self.transactor.active
+        self.transactor.update(active: false)
+        p "[DGP-NOTIFY] #{self.transactor.name.capitalize}'s deposits have been deactivated."
+      end
       true
     else
       false
