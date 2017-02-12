@@ -32,7 +32,7 @@
       end
 
       def test_deposit
-        if @account.send(to: @address, amount: 0.10, currency: "USD")
+        if @account.send(to: @address, amount: 0.15, currency: "USD")
           self.success = true
           @client.test_deposit_made = true
           @client.total_donations += 0.10
