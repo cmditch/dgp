@@ -32,10 +32,11 @@
       end
 
       def test_deposit
-        if @account.send(to: @address, amount: 0.15, currency: "USD")
+        test_deposit_amount = Rails.application.secrets.test_deposit_amount
+        if @account.send(to: @address, amount: test_deposit_amount, currency: "USD")
           self.success = true
           @client.test_deposit_made = true
-          @client.total_donations += 0.10
+          @client.total_donations += test_deposit_amount
           puts "[DGP-NOTIFY] Test deposit sent to #{@client.name} (#{@client.id})"
           @api = nil
           @client.save
