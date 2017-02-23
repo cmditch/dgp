@@ -22,9 +22,9 @@
 
 
 <br>
-<%= link_to 'Test Deposit', test_deposit_client_path, method: :put, :class => 'btn btn-warning btn-xs', style: "color: white"  %>
+<%= link_to 'Test Deposit', test_deposit_client_path, method: :put, :class => 'btn btn-warning btn-xs', style: "color: white", :disabled => @client.hidden  %>
 <br>
-<%= link_to 'Activate/Deactivate', toggle_client_path, :method => :toggle_activation, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-xs btn-danger', style: "color: white; margin-top: 4px" %>
+<%= link_to 'Activate/Deactivate', toggle_client_path, :method => :toggle_activation, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-xs btn-danger', style: "color: white; margin-top: 4px", :disabled => @client.hidden %>
 <br><br>
 <%= link_to t('.back', :default => t("helpers.links.back")),
               clients_path, :class => 'btn btn-default btn-xs'  %>

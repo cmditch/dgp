@@ -16,7 +16,7 @@
   </thead>
   <tbody>
     <% @clients.each do |client| %>
-      <tr>
+      <tr <%= raw("class=hid hidden='hidden' style='background-color: #d89494;'") if client.hidden %> >
         <td><%= link_to client.name, client, class: "black-link" %></td>
         <td title="<%= client.balance %> BTC">$<%= price_round(client.balance * @spot_price) %></td>
         <td>$<%= price_round(client.total_donations) %></td>
@@ -28,7 +28,8 @@
                       toggle_client_path(client),
                       :method => :toggle_activation,
                       :data => { :confirm => 'Are you sure?' },
-                      :class => 'btn btn-default btn-xs' %>
+                      :class => 'btn btn-default btn-xs',
+                      :disabled => client.hidden %>
           <% link_to 'Test Deposit', test_deposit_client_path(client), method: :put, :class => 'btn btn-default btn-xs'  %>
         </td>
       </tr>
@@ -39,3 +40,4 @@
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_client_path,
             :class => 'btn btn-primary black-link' %>
+

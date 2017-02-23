@@ -85,10 +85,17 @@
       </div><!--/row-->
 
       <footer>
-        <p>&copy; Distributed Giving Project 2017</p>
+        <p><span id="unHide">&copy;</span> Distributed Giving Project 2017</p>
       </footer>
 
     </div> <!-- /container -->
 
   </body>
+  <script type="text/javascript">
+    $('#unHide').on('click', function () {
+      console.debug("Test Clients now showing!");
+      $('.hid').show();
+    });
+</script>
+
 </html>
