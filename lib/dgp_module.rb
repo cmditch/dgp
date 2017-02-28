@@ -74,7 +74,7 @@ module DGP
         tx.usd_spot_price = DGP::MarketData.historical_spot_price(tx.received.to_date.to_s)
         sleep 0.35
         unless Transaction.find_by(txid: raw_tx[:txid])
-          if tx.save then p "[DGP-NOTIFY] Created Transaction. txid: #{tx.txid}" else p "[DGP-NOTIFY] Error adding transaction. txid: #{raw_tx[:txid]}" end
+          if tx.save then p "[DGP-NOTIFY-TX] Created Transaction. txid: #{tx.txid}" else p "[DGP-NOTIFY-TX] Error adding transaction. txid: #{raw_tx[:txid]}" end
           tx.validate
         end
       end
