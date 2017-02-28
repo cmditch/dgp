@@ -17,12 +17,13 @@ task :update_client_wallets => :environment do
   blockcypher_request = BlockCypher::Api.new(api_token: DGP::BLOCKCYPHER_API_TOKEN)
   DGP::MarketData.update_usd_btc_spot_price
   Client.all.each do |client|
+    next if client.hidden  # Skip all hidden, aka test, clients
     ["primary_wallet", "change_wallet"].each do |type|
-      p "Parsing #{client.name}'s #{type}"
+      p "[DGP-NOTIFY] Parsing #{client.name}'s #{type}"
       n = 0
       loop do
         sleep DGP::API_SLEEP_TIME
-        address               =   client.send("#{type}", n)
+        address               =   client.send("#{type}", n)  #grabs address of primary or change wallet by sending method name to client
         wallet                =   Wallet.find_by(address: address)
         wallet_id             =   wallet.id unless wallet.nil?
         wallet_block_height   =   wallet.last_block_height unless wallet.nil?
@@ -31,7 +32,7 @@ task :update_client_wallets => :environment do
         tx_block_height      ||=  0
         extra_wallet_details  =   { transactor_id: client.id, transactor_type: "Client", currency: "btc", wallet_type: type, hd_position: n, last_block_height: tx_block_height }
         endpoint_data.merge!(extra_wallet_details)
-        p "No new TX's for #{client.name}'s #{type}" if endpoint_data[:final_n_tx] == 0 && n == 0
+        p "[DGP-NOTIFY] No new TX's for #{client.name}'s #{type}" if endpoint_data[:final_n_tx] == 0 && n == 0
         break if endpoint_data[:final_n_tx] == 0
         if wallet.nil?
           w = Wallet.new

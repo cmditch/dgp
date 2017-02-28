@@ -11,6 +11,7 @@
       <th><%= model_class.human_attribute_name(:rate) %></th>
       <th><%= model_class.human_attribute_name(:txid) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%= model_class.human_attribute_name(:info) %></th>
     </tr>
   </thead>
   <tbody>
@@ -22,6 +23,7 @@
         <td><%= bitpay_webhook.rate %></td>
         <td><%= link_to short(bitpay_webhook.txid), tx_link(bitpay_webhook.txid), target: "_blank", class: "orange-link"  %></td>
         <td><%=l bitpay_webhook.created_at %></td>
+        <td><%= link_to "Details", bitpay_webhook %></td>
       </tr>
     <% end %>
   </tbody>

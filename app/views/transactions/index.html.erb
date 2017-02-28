@@ -12,6 +12,7 @@
       <th>Tx/Rx</th>
       <th><%= model_class.human_attribute_name(:Valid) %></th>
       <th><%= model_class.human_attribute_name(:received) %></th>
+      <th><%= model_class.human_attribute_name(:info) %></th>
     </tr>
   </thead>
   <tbody>
@@ -21,9 +22,10 @@
         <td title="$<%= price_round (transaction.sent.to_f / (10 ** 8)) * @spot_price %> at current spot price">$<%= price_round(transaction.sent_usd_price)%></td>
         <td title="$<%= price_round (transaction.fees.to_f / (10 ** 8)) * @spot_price %> at current spot price">$<%= price_round(transaction.fees_usd_price)%></td>
         <td><%= link_to(transaction.transactor.name, transaction.transactor, class: "black-link") %></td>
-        <td><%= transaction.client_was.capitalize %></td>
+        <td><%= transaction.client_was.capitalize || "error" %></td>
         <td><%= transaction.validated ? fa_icon("check-square", style: "color:green;padding-right:2px;", text: "Yes") : fa_icon("window-close", style: "color:red;padding-right:2px;", text: "No")  %></td>
         <td><%= format_time(transaction.received) %></td>
+        <td><%= link_to "Details", transaction %></td>
       </tr>
     <% end %>
   </tbody>

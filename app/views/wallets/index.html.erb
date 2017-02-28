@@ -23,7 +23,6 @@
       <th><%= model_class.human_attribute_name(:wallet_type) %></th>
       <th><%= model_class.human_attribute_name(:hd_position) %></th>
       <th><%= model_class.human_attribute_name(:last_block_height) %></th>
-      <th><%= model_class.human_attribute_name(:txs) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
@@ -49,16 +48,10 @@
         <td><%= wallet.wallet_type %></td>
         <td><%= wallet.hd_position %></td>
         <td><%= wallet.last_block_height %></td>
-        <td><%= wallet.txs %></td>
         <td><%=l wallet.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_wallet_path(wallet), :class => 'btn btn-default btn-xs' %>
-          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      wallet_path(wallet),
-                      :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                      :class => 'btn btn-xs btn-danger' %>
         </td>
       </tr>
     <% end %>
