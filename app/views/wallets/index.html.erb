@@ -8,56 +8,34 @@
       <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:address) %></th>
       <th><%= model_class.human_attribute_name(:balance) %></th>
-      <th><%= model_class.human_attribute_name(:active) %></th>
-      <th><%= model_class.human_attribute_name(:transactor_id) %></th>
-      <th><%= model_class.human_attribute_name(:transactor_type) %></th>
-      <th><%= model_class.human_attribute_name(:currency) %></th>
-      <th><%= model_class.human_attribute_name(:primary) %></th>
+      <th><%= model_class.human_attribute_name(:transactor_name) %></th>
       <th><%= model_class.human_attribute_name(:total_received) %></th>
       <th><%= model_class.human_attribute_name(:total_sent) %></th>
-      <th><%= model_class.human_attribute_name(:unconfirmed_balance) %></th>
       <th><%= model_class.human_attribute_name(:final_balance) %></th>
       <th><%= model_class.human_attribute_name(:n_tx) %></th>
-      <th><%= model_class.human_attribute_name(:unconfirmed_n_tx) %></th>
       <th><%= model_class.human_attribute_name(:final_n_tx) %></th>
       <th><%= model_class.human_attribute_name(:wallet_type) %></th>
       <th><%= model_class.human_attribute_name(:hd_position) %></th>
       <th><%= model_class.human_attribute_name(:last_block_height) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
   <tbody>
     <% @wallets.each do |wallet| %>
       <tr>
         <td><%= link_to wallet.id, wallet_path(wallet) %></td>
-        <td><%= wallet.address %></td>
+        <td><%= link_to wallet.address[0..4] + "..." + wallet.address[-5..-1], address_link(wallet.address) %></td>
         <td><%= wallet.balance %></td>
-        <td><%= wallet.active %></td>
-        <td><%= wallet.transactor_id %></td>
-        <td><%= wallet.transactor_type %></td>
-        <td><%= wallet.currency %></td>
-        <td><%= wallet.primary %></td>
+        <td><%= link_to wallet.transactor.name, wallet.transactor %></td>
         <td><%= wallet.total_received %></td>
         <td><%= wallet.total_sent %></td>
-        <td><%= wallet.unconfirmed_balance %></td>
         <td><%= wallet.final_balance %></td>
         <td><%= wallet.n_tx %></td>
-        <td><%= wallet.unconfirmed_n_tx %></td>
         <td><%= wallet.final_n_tx %></td>
         <td><%= wallet.wallet_type %></td>
         <td><%= wallet.hd_position %></td>
         <td><%= wallet.last_block_height %></td>
-        <td><%=l wallet.created_at %></td>
-        <td>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_wallet_path(wallet), :class => 'btn btn-default btn-xs' %>
-        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_wallet_path,
-            :class => 'btn btn-primary' %>

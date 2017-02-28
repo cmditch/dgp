@@ -1,5 +1,10 @@
 require 'dgp_module'
 
+
+# Cron these
+# heroku run:detached rake update_client_wallets
+# heroku run:detached rake daily_deposit
+
 desc "Deposit daily USD to primary wallets of active clients"
 task :daily_deposit => :environment do
   require 'depositor'
@@ -8,7 +13,7 @@ task :daily_deposit => :environment do
   Client.active.each do |client|
     depositor = Depositor::Client.new(client)
     depositor.deposit
-    sleep 0.5
+    sleep 1
   end
 end
 
@@ -59,6 +64,7 @@ task :update_usd_btc_spot_price => :environment do
 end
 
 #Dear GitHub Viewers, this is a super fast prototype. Sorry for the slop. - cditch
+
 
 
 
