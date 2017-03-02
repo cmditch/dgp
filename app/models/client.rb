@@ -69,7 +69,7 @@ class Client < ActiveRecord::Base
   end
 
   def btc_balance
-    wallets.map(&:final_balance).sum.to_f / (10 ** 8)
+    wallets.map {|wallet| wallet.final_balance - wallet.unconfirmed_balance}.sum.to_f / (10 ** 8)
   end
 
 end
