@@ -34,7 +34,7 @@ class Transaction < ActiveRecord::Base
   end
 
   def sent
-    outputs.first[:value]
+    outputs[-1][:value]
   end
 
   def senders
