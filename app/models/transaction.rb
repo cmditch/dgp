@@ -30,7 +30,7 @@ class Transaction < ActiveRecord::Base
   end
 
   def sent_usd_price
-    (usd_spot_price * (outputs.first[:value].to_f / 10**8))
+    (usd_spot_price * (outputs.[-1][:value].to_f / 10**8))
   end
 
   def sent
