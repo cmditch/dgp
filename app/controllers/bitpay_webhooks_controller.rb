@@ -6,7 +6,7 @@ class BitpayWebhooksController < ApplicationController
   # GET /bitpay_webhooks
   # GET /bitpay_webhooks.json
   def index
-    @bitpay_webhooks = BitpayWebhook.all
+    @bitpay_webhooks = BitpayWebhook.all.sort_by {|x| x.id }
   end
 
   # GET /bitpay_webhooks/1

@@ -21,7 +21,7 @@
         if @client.active?
           if @account.send(to: @address, amount: @amount, currency: "USD")
             self.success = true
-            puts "[DGP-NOTIFY] Depositing to #{@client.name} (#{@client.id}) success!"
+            puts "[DGP-NOTIFY] Depositing $#{@amount} to #{@client.name} (#{@client.id}) success!"
             @api = nil
             @client.total_donations += @amount
             @client.save

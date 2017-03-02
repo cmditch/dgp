@@ -4,7 +4,7 @@ class ClientsController < ApplicationController
   # GET /clients
   # GET /clients.json
   def index
-    @clients = Client.all
+    @clients = Client.all.sort_by {|x| x.created_at }
     @spot_price = Global.first.btc_usd_spot_price
   end
 
