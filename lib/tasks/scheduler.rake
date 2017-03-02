@@ -23,6 +23,7 @@ task :update_client_wallets => :environment do
   DGP::MarketData.update_usd_btc_spot_price
   Client.all.each do |client|
     next if client.hidden  # Skip all hidden, aka test, clients
+    client_balance = client.balance * Global.first.btc_usd_spot_price
     ["primary_wallet", "change_wallet"].each do |type|
       p "[DGP-NOTIFY-TX] Parsing #{client.name}'s #{type}"
       n = 0
@@ -55,6 +56,7 @@ task :update_client_wallets => :environment do
         n += 1
       end #end of loop
     end #each wallet type iterated
+    p "[DGP-NOTIFY] #{client.name}'s' final balance is #{client_balance}, pausing deposits..." if client_balance > 40
   end #each client iterated
 end
 
