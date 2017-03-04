@@ -3,6 +3,9 @@
   <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
 </div>
 
+
+
+
 <dl class="dl-horizontal">
   <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
   <dd><%= @client.name %></dd>
@@ -12,6 +15,8 @@
   <dd><%= @client.active ? fa_icon("check-square", style: "color:green;padding-right:2px;", text: "Yes") : fa_icon("window-close", style: "color:red;padding-right:2px;", text: "No")  %></dd>
   <dt><strong>Last Known Balance:</strong></dt>
   <dd>$<%= price_round(@client.balance * @spot_price) %></dd>
+  <dt><strong>Total Donations:</strong></dt>
+  <dd>$<%= price_round(@client.total_donations) %></dd>
   <dt><strong>Deposit Address:</strong></dt>
   <dd><%= link_to @client.primary_wallet, address_link(@client.primary_wallet) %></dd>
   <br>
@@ -20,11 +25,37 @@
   <div style="padding-top: 3px"><p style="font-size: medium;" class="myHiddenText" id="seed"><%= @client.mnemonic %></p></div>
 </dl>
 
-
-<br>
 <%= link_to 'Test Deposit', test_deposit_client_path, method: :put, :class => 'btn btn-warning btn-xs', style: "color: white", :disabled => @client.hidden  %>
 <br>
 <%= link_to 'Activate/Deactivate', toggle_client_path, :method => :toggle_activation, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-xs btn-danger', style: "color: white; margin-top: 4px", :disabled => @client.hidden %>
 <br><br>
 <%= link_to t('.back', :default => t("helpers.links.back")),
               clients_path, :class => 'btn btn-default btn-xs'  %>
+<br><br>
+<div class="client-tx-list">
+  <div><h3>Transactions</h3></div>
+  <table>
+    <thead>
+      <th>Date</th>
+      <th>Amount</th>
+      <th>TxId</th>
+      <th>Tx/Rx</th>
+      <th>Valid?</th>
+      <th>Bitpay</th>
+      <th>Info</th>
+    </thead>
+    <tbody>
+      <% @client.transactions.sort_by(&:received).reverse.each do |tx| %>
+        <tr>
+          <td ><%= tx.received.to_s[0..15] %></td>
+          <td >$<%= price_round(tx.sent_usd_price) %></td>
+          <td><%= link_to short(tx.txid), tx_link(tx.txid), class: "orange-link" %></td>
+          <td><%= tx.client_was.capitalize %></td>
+          <td><%= tx.validated ? fa_icon("check-square", style: "color:green;padding-right:2px;", text: "Yes") : fa_icon("window-close", style: "color:red;padding-right:2px;", text: "No")  %></td>
+          <td><%= tx.bitpay_tx ? ( link_to tx.bitpay_tx.bitpay_id[0..4] + "...", tx.bitpay_tx.url ) : "N/A" %></td>
+          <td><%= link_to "Info", tx %></td>
+        <tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

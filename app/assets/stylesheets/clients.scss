@@ -1,3 +1,39 @@
 // Place all the styles related to the clients controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.client-tx-list {
+  border: 2px solid lightgrey;
+  width: 600px;
+  height: 500px;
+  overflow: scroll;
+  transition: box-shadow 0.2s;
+  &:hover {
+    box-shadow: 5px 5px lightsteelblue;
+    }
+
+  table {
+    text-align: center;
+    width: 90%;
+  }
+
+  th {
+    text-align: center;
+    margin-bottom: 3px;
+  }
+
+  td {
+    padding: 5px;
+  }
+
+  div {
+    text-align: center;
+    text-decoration: underline;
+    padding-bottom: 10px;
+  }
+
+  a {
+    transition: focus  0.5s;
+    &:focus {background-color: orange;}
+  }
+}

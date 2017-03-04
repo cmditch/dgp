@@ -16,10 +16,10 @@
     </tr>
   </thead>
   <tbody>
-    <% @bitpay_webhooks.each do |bitpay_webhook| %>
+    <% @bitpay_webhooks.sort_by(&:created_at).reverse.each do |bitpay_webhook| %>
       <tr>
         <td><%= link_to bitpay_webhook.orderId, bitpay_webhook.url, target: "_blank", class: "black-link" %></td>
-        <td><%= link_to bitpay_webhook.client.name, bitpay_webhook.client %></td>
+        <td><%= bitpay_webhook.client ? (link_to bitpay_webhook.client.name, bitpay_webhook.client) : "N/A" %></td>
         <td><%= bitpay_webhook.btcPaid %></td>
         <td><%= bitpay_webhook.btcDue %></td>
         <td><%= bitpay_webhook.rate %></td>

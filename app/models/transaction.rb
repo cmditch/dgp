@@ -13,6 +13,10 @@ class Transaction < ActiveRecord::Base
     puts before, after
   end
 
+  def bitpay_tx
+    BitpayWebhook.find_by(txid: self.txid)
+  end
+
   def self.list
     all.map(&:txid)
   end
