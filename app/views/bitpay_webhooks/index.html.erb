@@ -6,6 +6,7 @@
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:Invoice) %></th>
+      <th><%= model_class.human_attribute_name(:Client) %></th>
       <th><%= model_class.human_attribute_name(:btcPaid) %></th>
       <th><%= model_class.human_attribute_name(:btcDue) %></th>
       <th><%= model_class.human_attribute_name(:rate) %></th>
@@ -17,6 +18,7 @@
     <% @bitpay_webhooks.each do |bitpay_webhook| %>
       <tr>
         <td><%= link_to bitpay_webhook.orderId, bitpay_webhook.url, target: "_blank", class: "black-link" %></td>
+        <td><%= link_to bitpay_webhook.client.name, bitpay_webhook.client %></td>
         <td><%= bitpay_webhook.btcPaid %></td>
         <td><%= bitpay_webhook.btcDue %></td>
         <td><%= bitpay_webhook.rate %></td>

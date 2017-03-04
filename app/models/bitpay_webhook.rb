@@ -2,6 +2,10 @@ class BitpayWebhook < ActiveRecord::Base
   serialize :data
   serialize :transactions
 
+  def client
+    Transaction.find_by(txid: txid).transactor || Client.new(name: "unknown")
+  end
+
   def self.tx_ids
     all.map { |x| x.tx_ids }.flatten
   end
