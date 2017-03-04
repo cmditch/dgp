@@ -30,11 +30,11 @@ class Transaction < ActiveRecord::Base
   end
 
   def sent_usd_price
-    (usd_spot_price * (outputs.first[:value].to_f / 10**8))
+    (usd_spot_price * (outputs.[-1][:value].to_f / 10**8))
   end
 
   def sent
-    outputs.first[:value]
+    outputs[-1][:value]
   end
 
   def senders
@@ -51,12 +51,12 @@ class Transaction < ActiveRecord::Base
       true
     elsif non_client_senders.empty?
       params = {client_was: "sender"} 
-      self.check_against_bitpay_webhooks ? params[:validated] = true : (params[:validated] = false; p "[DGP-NOTIFY] Transaction #{self.txid} is flagged as invalid!")
+      self.check_against_bitpay_webhooks ? params[:validated] = true : (params[:validated] = false; p "[DGP-NOTIFY-TX] Transaction #{self.txid} is flagged as invalid!")
       self.update(params)
-      unless !self.transactor.active
-        self.transactor.update(active: false)
-        p "[DGP-NOTIFY] #{self.transactor.name.capitalize}'s deposits have been deactivated."
-      end
+      # unless !self.transactor.active
+      #   self.transactor.update(active: false)
+      #   p "[DGP-NOTIFY-TX] #{self.transactor.name.capitalize}'s deposits have been deactivated."
+      # end
       true
     else
       false

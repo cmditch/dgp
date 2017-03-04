@@ -15,18 +15,19 @@
         @amount      = @client.daily_usd_amount
         @api         = Coinbase::Wallet::Client.new(api_key: @key, api_secret: @secret)
         @account     = @api.account(@account_id)
+        @wallet_balance  = client.balance * Global.first.btc_usd_spot_price
       end
 
       def deposit
-        if @client.active?
+        if @client.active? && @wallet_balance <= 41
           if @account.send(to: @address, amount: @amount, currency: "USD")
             self.success = true
-            puts "[DGP-NOTIFY] Depositing to #{@client.name} (#{@client.id}) success!"
+            puts "[DGP-NOTIFY] Depositing $#{@amount} to #{@client.name} (#{@client.id}) success!"
             @api = nil
             @client.total_donations += @amount
             @client.save
           else
-            puts "[DGP-ERROR] Deposit to #{client.name} (#{client.id}) FAILED! "
+            puts "[DGP-ERROR] Deposit to #{client.name} FAILED! Balance is: #{@wallet_balance} "
           end
         end
       end
@@ -41,7 +42,7 @@
           @api = nil
           @client.save
         else
-          puts "[DGP-ERROR] Test deposit to #{client.name} (#{client.id}) FAILED! "
+          puts "[DGP-ERROR] Test deposit to #{client.name} (#{client.id}) FAILED!"
         end
       end
 
