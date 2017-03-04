@@ -4,7 +4,7 @@ class BitpayWebhook < ActiveRecord::Base
 
   def client
     tx = Transaction.find_by(txid: txid)
-    if tx.nil? then Client.new(name: "Error") else tx.transactor end
+    if tx.nil? then Client.new(name: "Unknown") else tx.transactor end
   end
 
   def self.tx_ids
