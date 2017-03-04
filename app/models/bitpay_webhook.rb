@@ -3,7 +3,8 @@ class BitpayWebhook < ActiveRecord::Base
   serialize :transactions
 
   def client
-    Transaction.find_by(txid: txid).transactor || Client.new(name: "unknown")
+    tx = Transaction.find_by(txid: txid)
+    if tx.nil? then Client.new(name: "Error") else tx.transactor end
   end
 
   def self.tx_ids
