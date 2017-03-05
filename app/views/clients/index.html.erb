@@ -9,6 +9,7 @@
       <th><%= model_class.human_attribute_name(:balance) %></th>
       <th>Total Donations</th>
       <th>Semi-Daily Deposit</th>
+      <th># TX's Sent</th>
       <th><%= model_class.human_attribute_name(:active) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
@@ -21,6 +22,7 @@
         <td title="<%= client.balance %> BTC">$<%= price_round(client.balance * @spot_price) %></td>
         <td>$<%= price_round(client.total_donations) %></td>
         <td>$<%= price_round(client.daily_usd_amount) %></td>
+        <td><%= client.sent_txs.count %></td>
         <td><%= client.active ? fa_icon("check-square", style: "color:green;padding-right:2px;", text: "Yes") : fa_icon("window-close", style: "color:red;padding-right:2px;", text: "No") %></td>
         <td><%= client.created_at.to_date %></td>
         <td>

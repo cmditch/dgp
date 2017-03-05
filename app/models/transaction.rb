@@ -21,8 +21,8 @@ class Transaction < ActiveRecord::Base
     all.map(&:txid)
   end
 
-  def self.validated?
-    where(validated: true)
+  def self.validated?(x = true)
+    where(validated: x)
   end
 
   def total_usd_price

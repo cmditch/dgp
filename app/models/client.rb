@@ -54,8 +54,16 @@ class Client < ActiveRecord::Base
     Depositor::Client.new(self).test_deposit
   end
 
+  def daily_deposit
+    Depositor::Client.new(self).deposit
+  end
+
   def usd_balance
     (btc_balance * Global.first.btc_usd_spot_price).round(2)
+  end
+
+  def sent_txs
+    transactions.where(client_was: "sender")
   end
 
   private
