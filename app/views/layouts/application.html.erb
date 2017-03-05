@@ -29,9 +29,9 @@
         <% if user_signed_in? %>
         <span class="header-data">
           <b>Total Donations:</b> <span>$<%= price_round(Client.all.map(&:total_donations).sum) %></span>
-          <b>Client Payed Fees:</b> <span>$<%= price_round((Transaction.where(client_was: "sender").map(&:fees).sum.to_f / (10 ** 8)) * Global.first.btc_usd_spot_price) %></span>
+          <b>Client Payed Fees:</b> <span>$<%= price_round(Transaction.where(client_was: "sender").map(&:fees_usd_price).sum) %></span>
           <br><b>Active Clients:</b> <span><%= Client.active.count %></span>
-          <b style="padding-left: 55px;">Total Fees:</b> <span>$<%= price_round((Transaction.all.map(&:fees).sum.to_f / (10 ** 8)) * Global.first.btc_usd_spot_price) %></span>
+          <b style="padding-left: 55px;">Total Fees:</b> <span>$<%= price_round(Transaction.all.map(&:fees_usd_price).sum) %></span>
         </span>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
           <ul class="nav navbar-nav" style="float: right;">
