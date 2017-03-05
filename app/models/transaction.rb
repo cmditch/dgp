@@ -64,7 +64,7 @@ class Transaction < ActiveRecord::Base
       true
     else
       self.update(client_was: "Error", validated: false)
-      p "[DGP-NOTIFY-TX] Transaction #{self.txid} validation error.")
+      p "[DGP-NOTIFY-TX] Transaction #{self.txid} validation error."
       false
     end
   end
