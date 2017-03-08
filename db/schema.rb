@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170223202710) do
+ActiveRecord::Schema.define(version: 20170308193227) do
 
   create_table "bitpay_webhooks", force: :cascade do |t|
     t.text     "data"
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 20170223202710) do
     t.text     "notes"
     t.boolean  "test_deposit_made",     default: false
     t.boolean  "hidden",                default: false
+    t.string   "phone_number"
   end
 
   add_index "clients", ["gatekeeper_id"], name: "index_clients_on_gatekeeper_id"
