@@ -65,6 +65,12 @@ task :update_usd_btc_spot_price => :environment do
   DGP::MarketData.update_usd_btc_spot_price
 end
 
+desc "Sweeps transacitons and rechecks validty"
+task :validate_txs => :environment do
+  Transaction.where(validated: false).each(&:validate)
+  Transaction.where(validated: nil).each(&:validate)
+end
+
 #Dear GitHub Viewers, this is a super fast prototype. Sorry for the slop. - cditch
 
 
