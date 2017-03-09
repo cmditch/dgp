@@ -19,7 +19,7 @@
       end
 
       def deposit
-        if @client.active? && @wallet_balance <= 41
+        if @client.active? && @wallet_balance <= 40
           if @account.send(to: @address, amount: @amount, currency: "USD")
             self.success = true
             puts "[DGP-NOTIFY] Depositing $#{@amount} to #{@client.name} (#{@client.id}) success!"
