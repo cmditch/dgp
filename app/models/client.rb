@@ -65,7 +65,19 @@ class Client < ActiveRecord::Base
   def sent_txs
     transactions.where(client_was: "sender")
   end
+  
+  def text_message(text_msg)
+    twilio = Twilio::REST::Client.new Rails.application.secrets.twilio_sid, Rails.application.secrets.twilio_token
+    if !phone_number.nil?
+      twilio.account.messages.create({
+          :to => "+1" + phone_number,
+          :from => Rails.application.secrets.twilio_number,
+          :body => text_msg
+      })
+    end
+  end
 
+# Private 
   private
 
   def seed_text
@@ -80,15 +92,6 @@ class Client < ActiveRecord::Base
     wallets.map {|wallet| wallet.final_balance - wallet.unconfirmed_balance}.sum.to_f / (10 ** 8)
   end
 
-  def text_message(text_msg)
-    twilio = Twilio::REST::Client.new Rails.application.secrets.twilio_sid, Rails.application.secrets.twilio_token
-    if !phone_number.nil?
-      twilio.account.messages.create({
-          :to => "+1" + phone_number,
-          :from => Rails.application.secrets.twilio_number,
-          :body => text_msg
-      })
-    end
-  end
+
 
 end
